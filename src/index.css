@@ -1,8 +1,32 @@
 @import 'tailwindcss';
 
 /*
-  Paleta NeoGold. Fonte do sistema de propósito: nenhuma requisição externa
-  sai da página — sem Google Fonts, sem CDN, sem analytics.
+  Inter, servida pelo próprio site. Só o subconjunto latino (48 KB), que
+  cobre o português inteiro — ã, ç, õ e acentos vivem todos no Latin-1.
+  Nenhuma requisição sai para Google Fonts ou CDN.
+*/
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('./assets/inter-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+/*
+  Paleta.
+
+  A escala `carvao` não é literalmente "carvão": ela vai da superfície mais
+  distante do olho (950) até a tinta do texto (100). No modo claro os dois
+  extremos trocam de lado, e é só isso que precisa mudar — nenhum componente
+  sabe qual tema está ativo.
+
+  Nas escalas de cor a divisão é outra, e ela é consistente em todo o app:
+    300 e 400 -> texto        (escurecem no modo claro, para ter contraste)
+    500 e 600 -> preenchimento, borda e barra (seguem saturados nos dois)
 */
 @theme {
   --color-carvao-950: #08080a;
@@ -11,17 +35,21 @@
   --color-carvao-800: #17171c;
   --color-carvao-700: #202027;
   --color-carvao-600: #2b2b34;
-  --color-carvao-500: #3a3a45;
-  --color-carvao-400: #6b6b7a;
-  --color-carvao-300: #9a9aab;
-  --color-carvao-200: #c8c8d4;
-  --color-carvao-100: #e9e9f0;
+  --color-carvao-500: #6b6b7a;
+  --color-carvao-400: #9a9aab;
+  --color-carvao-300: #c8c8d4;
+  --color-carvao-200: #dcdce4;
+  --color-carvao-100: #f2f2f6;
 
-  --color-ouro-700: #8a6a16;
+  --color-ouro-700: #6b5410;
   --color-ouro-600: #b8912b;
   --color-ouro-500: #d4af37;
   --color-ouro-400: #e5c45c;
   --color-ouro-300: #f0d68c;
+
+  /* Tinta sobre superfície dourada. Escura nos dois temas: dourado com
+     texto claro nunca tem contraste suficiente. */
+  --color-sobre-ouro: #08080a;
 
   --color-esmeralda-600: #059669;
   --color-esmeralda-500: #10b981;
@@ -36,11 +64,53 @@
   --color-rubi-400: #f87171;
 
   --font-sans:
-    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    'Noto Sans', sans-serif;
+    'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   --font-mono: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', Menlo, monospace;
 
-  --radius-xl2: 1.25rem;
+  --radius-xl2: 1.125rem;
+
+  /* Só têm valor no claro; no escuro a profundidade vem do contraste. */
+  --sombra-cartao: none;
+  --brilho-topo: 0.085;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-carvao-950: #f5f5f7;
+    --color-carvao-900: #ffffff;
+    --color-carvao-850: #f4f4f7;
+    --color-carvao-800: #ebebef;
+    --color-carvao-700: #e4e4ea;
+    --color-carvao-600: #d8d8e0;
+    --color-carvao-500: #97979f;
+    --color-carvao-400: #6b6b74;
+    --color-carvao-300: #47474f;
+    --color-carvao-200: #2c2c32;
+    --color-carvao-100: #1d1d1f;
+
+    --color-ouro-700: #5c4810;
+    --color-ouro-600: #a8871f;
+    --color-ouro-500: #c9a227;
+    --color-ouro-400: #8a6d1a;
+    --color-ouro-300: #6b5410;
+    --color-sobre-ouro: #1d1d1f;
+
+    --color-esmeralda-600: #12794a;
+    --color-esmeralda-500: #199e5c;
+    --color-esmeralda-400: #1a7f47;
+
+    --color-safira-600: #0058b0;
+    --color-safira-500: #0071e3;
+    --color-safira-400: #0a66c2;
+
+    --color-rubi-600: #b0231b;
+    --color-rubi-500: #d92d20;
+    --color-rubi-400: #c0271e;
+
+    --sombra-cartao: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -8px rgb(0 0 0 / 0.08);
+    --brilho-topo: 0.05;
+  }
 }
 
 @layer base {
@@ -49,7 +119,7 @@
   }
 
   html {
-    color-scheme: dark;
+    color-scheme: light dark;
     scrollbar-color: var(--color-carvao-600) transparent;
   }
 
@@ -70,14 +140,24 @@
     top: 0;
     height: 24rem;
     pointer-events: none;
-    background: radial-gradient(60% 100% at 50% 0%, rgb(212 175 55 / 0.09), transparent 70%);
+    background: radial-gradient(
+      60% 100% at 50% 0%,
+      rgb(212 175 55 / var(--brilho-topo)),
+      transparent 70%
+    );
     z-index: 0;
+  }
+
+  /* Títulos com o espaçamento fechado que a Inter pede em corpo grande. */
+  h1,
+  h2 {
+    letter-spacing: -0.021em;
   }
 
   /* Valores em dinheiro nunca "dançam" ao mudar de dígito. */
   .tabular {
     font-variant-numeric: tabular-nums;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.025em;
   }
 
   :focus-visible {
@@ -87,7 +167,6 @@
   }
 
   input[type='date']::-webkit-calendar-picker-indicator {
-    filter: invert(0.7);
     cursor: pointer;
   }
 
@@ -108,6 +187,7 @@
     background-color: var(--color-carvao-900);
     border: 1px solid var(--color-carvao-700);
     border-radius: var(--radius-xl2);
+    box-shadow: var(--sombra-cartao);
     position: relative;
     z-index: 1;
   }

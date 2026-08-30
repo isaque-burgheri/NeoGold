@@ -113,6 +113,9 @@ export function InputMoeda({ valor, onChange, className = '', ...props }) {
         autoComplete="off"
         value={numero(valor)}
         onChange={(e) => onChange(digitosParaValor(e.target.value))}
+        // Sem isto, o primeiro dígito digitado depende de onde o cursor caiu:
+        // clicar no início de "0,00" e teclar 5 daria R$ 50,00 em vez de R$ 0,05.
+        onFocus={(e) => e.target.select()}
         className={`${CLASSE_INPUT} tabular pl-10 text-right ${className}`}
         {...props}
       />

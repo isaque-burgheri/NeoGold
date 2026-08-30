@@ -53,7 +53,11 @@ function ItemMeta({ meta, estado, aoAportar, aoEditar, aoAlterarAcumulado }) {
         <div className="mt-2 flex items-center justify-between text-xs">
           <span className="tabular font-medium text-ouro-300">{percentual(c.fracao, 0)}</span>
           <span className="tabular text-carvao-500">
-            {c.falta > 0 ? `Faltam ${moeda(c.falta)}` : 'Meta batida'}
+            {c.alvo <= 0
+              ? 'Defina o valor da meta'
+              : c.falta > 0
+                ? `Faltam ${moeda(c.falta)}`
+                : 'Meta batida'}
           </span>
         </div>
       </div>

@@ -1,0 +1,124 @@
+@import 'tailwindcss';
+
+/*
+  Paleta NeoGold. Fonte do sistema de propósito: nenhuma requisição externa
+  sai da página — sem Google Fonts, sem CDN, sem analytics.
+*/
+@theme {
+  --color-carvao-950: #08080a;
+  --color-carvao-900: #0d0d10;
+  --color-carvao-850: #121216;
+  --color-carvao-800: #17171c;
+  --color-carvao-700: #202027;
+  --color-carvao-600: #2b2b34;
+  --color-carvao-500: #3a3a45;
+  --color-carvao-400: #6b6b7a;
+  --color-carvao-300: #9a9aab;
+  --color-carvao-200: #c8c8d4;
+  --color-carvao-100: #e9e9f0;
+
+  --color-ouro-700: #8a6a16;
+  --color-ouro-600: #b8912b;
+  --color-ouro-500: #d4af37;
+  --color-ouro-400: #e5c45c;
+  --color-ouro-300: #f0d68c;
+
+  --color-esmeralda-600: #059669;
+  --color-esmeralda-500: #10b981;
+  --color-esmeralda-400: #34d399;
+
+  --color-safira-600: #2563eb;
+  --color-safira-500: #3b82f6;
+  --color-safira-400: #60a5fa;
+
+  --color-rubi-600: #dc2626;
+  --color-rubi-500: #ef4444;
+  --color-rubi-400: #f87171;
+
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', Menlo, monospace;
+
+  --radius-xl2: 1.25rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-carvao-700);
+  }
+
+  html {
+    color-scheme: dark;
+    scrollbar-color: var(--color-carvao-600) transparent;
+  }
+
+  body {
+    background-color: var(--color-carvao-950);
+    color: var(--color-carvao-100);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100dvh;
+  }
+
+  /* Brilho discreto no topo, sem custo de imagem. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    height: 24rem;
+    pointer-events: none;
+    background: radial-gradient(60% 100% at 50% 0%, rgb(212 175 55 / 0.09), transparent 70%);
+    z-index: 0;
+  }
+
+  /* Valores em dinheiro nunca "dançam" ao mudar de dígito. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ouro-500);
+    outline-offset: 2px;
+    border-radius: 0.375rem;
+  }
+
+  input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(0.7);
+    cursor: pointer;
+  }
+
+  /* Some com as setinhas dos inputs numéricos. */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  .cartao {
+    background-color: var(--color-carvao-900);
+    border: 1px solid var(--color-carvao-700);
+    border-radius: var(--radius-xl2);
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

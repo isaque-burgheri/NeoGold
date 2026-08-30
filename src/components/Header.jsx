@@ -8,7 +8,7 @@ function Logo() {
   return (
     <span
       aria-hidden="true"
-      className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-ouro-400 to-ouro-600 text-lg font-bold text-carvao-950"
+      className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-ouro-500 to-ouro-600 text-lg font-bold text-sobre-ouro"
     >
       N
     </span>

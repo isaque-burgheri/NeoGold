@@ -40,7 +40,7 @@ export function CabecalhoCartao({ titulo, subtitulo, icone, acao }) {
 /* ------------------------------------------------------------------ Botão */
 
 const ESTILOS_BOTAO = {
-  primario: 'bg-ouro-500 text-carvao-950 hover:bg-ouro-400 font-semibold',
+  primario: 'bg-ouro-500 text-sobre-ouro hover:bg-ouro-600 font-semibold',
   secundario: 'bg-carvao-800 text-carvao-100 hover:bg-carvao-700 border border-carvao-600',
   fantasma: 'text-carvao-300 hover:text-carvao-100 hover:bg-carvao-800',
   sucesso: 'bg-esmeralda-600 text-white hover:bg-esmeralda-500 font-semibold',
@@ -172,11 +172,13 @@ export function InputNumero({
 
 /* ------------------------------------------------------- Barra de progresso */
 
+// Só tons de preenchimento (-500/-600). Os -400 são de texto e escurecem
+// no modo claro; usá-los aqui deixava a barra marrom em vez de dourada.
 const CORES_BARRA = {
-  ouro: 'from-ouro-600 to-ouro-400',
-  esmeralda: 'from-esmeralda-600 to-esmeralda-400',
-  safira: 'from-safira-600 to-safira-400',
-  rubi: 'from-rubi-600 to-rubi-400',
+  ouro: 'from-ouro-600 to-ouro-500',
+  esmeralda: 'from-esmeralda-600 to-esmeralda-500',
+  safira: 'from-safira-600 to-safira-500',
+  rubi: 'from-rubi-600 to-rubi-500',
 }
 
 export function BarraProgresso({ fracao, cor = 'ouro', altura = 'h-2.5', rotulo }) {

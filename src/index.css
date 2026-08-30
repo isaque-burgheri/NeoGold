@@ -1,16 +1,31 @@
 @import 'tailwindcss';
 
 /*
-  Inter, servida pelo próprio site. Só o subconjunto latino (48 KB), que
-  cobre o português inteiro — ã, ç, õ e acentos vivem todos no Latin-1.
-  Nenhuma requisição sai para Google Fonts ou CDN.
+  Tipografia — duas famílias, servidas pelo próprio site, só o subconjunto
+  latino. Nenhuma requisição sai para Google Fonts ou CDN.
+
+  Fraunces carrega as cifras e os títulos. É uma serifada de display com
+  eixo óptico, e a escolha não é decorativa: dinheiro impresso em serifa é
+  a convenção de extrato bancário e relatório financeiro há um século.
+  Instrument Sans cuida do texto de interface, onde serifa atrapalharia.
 */
 @font-face {
-  font-family: 'Inter';
+  font-family: 'Fraunces';
   font-style: normal;
   font-display: swap;
   font-weight: 100 900;
-  src: url('./assets/inter-latin-wght-normal.woff2') format('woff2-variations');
+  src: url('./assets/fraunces-latin-opsz-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('./assets/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
     U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
     U+FEFF, U+FFFD;
@@ -19,97 +34,103 @@
 /*
   Paleta.
 
-  A escala `carvao` não é literalmente "carvão": ela vai da superfície mais
-  distante do olho (950) até a tinta do texto (100). No modo claro os dois
-  extremos trocam de lado, e é só isso que precisa mudar — nenhum componente
-  sabe qual tema está ativo.
+  Um só acento — o dourado — sobre uma escala de neutros quentes. As cores
+  semânticas existem, mas dessaturadas de propósito: elas precisam sinalizar
+  "quitado" e "vencendo", não competir com o dourado pela atenção.
 
-  Nas escalas de cor a divisão é outra, e ela é consistente em todo o app:
-    300 e 400 -> texto        (escurecem no modo claro, para ter contraste)
-    500 e 600 -> preenchimento, borda e barra (seguem saturados nos dois)
+  A escala `carvao` vai da superfície mais distante do olho (950) até a
+  tinta do texto (100). No modo claro os extremos trocam de lado e nada mais
+  muda — nenhum componente sabe qual tema está ativo.
+
+  Divisão constante nas escalas de cor:
+    300 e 400 -> texto        (escurecem no claro, para ter contraste)
+    500 e 600 -> preenchimento, borda e barra
 */
 @theme {
-  --color-carvao-950: #08080a;
-  --color-carvao-900: #0d0d10;
-  --color-carvao-850: #121216;
-  --color-carvao-800: #17171c;
-  --color-carvao-700: #202027;
-  --color-carvao-600: #2b2b34;
-  --color-carvao-500: #6b6b7a;
-  --color-carvao-400: #9a9aab;
-  --color-carvao-300: #c8c8d4;
-  --color-carvao-200: #dcdce4;
-  --color-carvao-100: #f2f2f6;
+  --color-carvao-950: #0a0908;
+  --color-carvao-900: #13110e;
+  --color-carvao-850: #1a1714;
+  --color-carvao-800: #232019;
+  --color-carvao-700: #2e2a23;
+  --color-carvao-600: #3c362d;
+  --color-carvao-500: #948a7a;
+  --color-carvao-400: #a89e8e;
+  --color-carvao-300: #cfc6b8;
+  --color-carvao-200: #e6dfd3;
+  --color-carvao-100: #f6f2e9;
 
-  --color-ouro-700: #6b5410;
-  --color-ouro-600: #b8912b;
-  --color-ouro-500: #d4af37;
-  --color-ouro-400: #e5c45c;
-  --color-ouro-300: #f0d68c;
+  --color-ouro-700: #8a6a16;
+  --color-ouro-600: #b88a2e;
+  --color-ouro-500: #d9a94a;
+  --color-ouro-400: #e8c67c;
+  --color-ouro-300: #f2dca8;
 
-  /* Tinta sobre superfície dourada. Escura nos dois temas: dourado com
-     texto claro nunca tem contraste suficiente. */
-  --color-sobre-ouro: #08080a;
+  --color-esmeralda-600: #3e7250;
+  --color-esmeralda-500: #4e8b5f;
+  --color-esmeralda-400: #8fbc9c;
 
-  --color-esmeralda-600: #059669;
-  --color-esmeralda-500: #10b981;
-  --color-esmeralda-400: #34d399;
+  --color-safira-600: #33565f;
+  --color-safira-500: #45707c;
+  --color-safira-400: #9ab9c2;
 
-  --color-safira-600: #2563eb;
-  --color-safira-500: #3b82f6;
-  --color-safira-400: #60a5fa;
+  --color-rubi-600: #a34430;
+  --color-rubi-500: #c4553f;
+  --color-rubi-400: #e0937e;
 
-  --color-rubi-600: #dc2626;
-  --color-rubi-500: #ef4444;
-  --color-rubi-400: #f87171;
+  /* Tinta sobre superfície dourada. Sempre em contraste com o dourado,
+     nos dois temas. */
+  --color-sobre-ouro: #0a0908;
 
-  --font-sans:
-    'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
-  --font-mono: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', Menlo, monospace;
+  --font-display: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-sans: 'Instrument Sans', ui-sans-serif, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', monospace;
 
   --radius-xl2: 1.125rem;
 
-  /* Só têm valor no claro; no escuro a profundidade vem do contraste. */
   --sombra-cartao: none;
-  --brilho-topo: 0.085;
+  --brilho-topo: 0.1;
+  --forca-textura: 0.022;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --color-carvao-950: #f5f5f7;
-    --color-carvao-900: #ffffff;
-    --color-carvao-850: #f4f4f7;
-    --color-carvao-800: #ebebef;
-    --color-carvao-700: #e4e4ea;
-    --color-carvao-600: #d8d8e0;
-    --color-carvao-500: #97979f;
-    --color-carvao-400: #6b6b74;
-    --color-carvao-300: #47474f;
-    --color-carvao-200: #2c2c32;
-    --color-carvao-100: #1d1d1f;
+    /* Papel, não branco clínico: o dourado precisa de fundo quente para
+       não virar mostarda. */
+    --color-carvao-950: #f4f0e6;
+    --color-carvao-900: #fffdf8;
+    --color-carvao-850: #f0ebdf;
+    --color-carvao-800: #e7e1d2;
+    --color-carvao-700: #ded6c5;
+    --color-carvao-600: #cec5b1;
+    --color-carvao-500: #6d6555;
+    --color-carvao-400: #554e40;
+    --color-carvao-300: #3b352b;
+    --color-carvao-200: #2b261e;
+    --color-carvao-100: #1a1613;
 
-    --color-ouro-700: #5c4810;
-    --color-ouro-600: #a8871f;
-    --color-ouro-500: #c9a227;
-    --color-ouro-400: #8a6d1a;
-    --color-ouro-300: #6b5410;
-    --color-sobre-ouro: #1d1d1f;
+    --color-ouro-700: #5e4310;
+    --color-ouro-600: #8a6214;
+    --color-ouro-500: #bf8f2c;
+    --color-ouro-400: #7a5712;
+    --color-ouro-300: #5e4310;
 
-    --color-esmeralda-600: #12794a;
-    --color-esmeralda-500: #199e5c;
-    --color-esmeralda-400: #1a7f47;
+    --color-esmeralda-600: #2f5b3f;
+    --color-esmeralda-500: #3e7250;
+    --color-esmeralda-400: #2f5b3f;
 
-    --color-safira-600: #0058b0;
-    --color-safira-500: #0071e3;
-    --color-safira-400: #0a66c2;
+    --color-safira-600: #2a4750;
+    --color-safira-500: #33565f;
+    --color-safira-400: #2a4750;
 
-    --color-rubi-600: #b0231b;
-    --color-rubi-500: #d92d20;
-    --color-rubi-400: #c0271e;
+    --color-rubi-600: #8f3826;
+    --color-rubi-500: #a8412d;
+    --color-rubi-400: #8f3826;
 
-    --sombra-cartao: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -8px rgb(0 0 0 / 0.08);
-    --brilho-topo: 0.05;
+    --color-sobre-ouro: #1a1613;
+
+    --sombra-cartao: 0 1px 2px rgb(58 44 16 / 0.05), 0 10px 28px -10px rgb(58 44 16 / 0.11);
+    --brilho-topo: 0.09;
+    --forca-textura: 0.016;
   }
 }
 
@@ -127,37 +148,57 @@
     background-color: var(--color-carvao-950);
     color: var(--color-carvao-100);
     font-family: var(--font-sans);
+    font-optical-sizing: auto;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     min-height: 100dvh;
   }
 
-  /* Brilho discreto no topo, sem custo de imagem. */
+  /* Atmosfera: um halo dourado no topo, como luz caindo sobre a página. */
   body::before {
     content: '';
     position: fixed;
     inset-inline: 0;
     top: 0;
-    height: 24rem;
+    height: 32rem;
     pointer-events: none;
-    background: radial-gradient(
-      60% 100% at 50% 0%,
-      rgb(212 175 55 / var(--brilho-topo)),
-      transparent 70%
-    );
     z-index: 0;
+    background:
+      radial-gradient(70% 100% at 50% -10%, rgb(217 169 74 / var(--brilho-topo)), transparent 68%),
+      radial-gradient(
+        40% 60% at 88% 0%,
+        rgb(217 169 74 / calc(var(--brilho-topo) * 0.45)),
+        transparent 70%
+      );
   }
 
-  /* Títulos com o espaçamento fechado que a Inter pede em corpo grande. */
+  /* Textura fina na diagonal. Quase invisível de propósito: tira o vazio
+     de "tela de computador" sem virar papel de parede. */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: var(--forca-textura);
+    background-image: repeating-linear-gradient(112deg, currentColor 0 1px, transparent 1px 11px);
+  }
+
   h1,
-  h2 {
-    letter-spacing: -0.021em;
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.012em;
   }
 
-  /* Valores em dinheiro nunca "dançam" ao mudar de dígito. */
+  /* `.tabular` marca todo valor monetário do app — por isso é ela que
+     carrega a serifada, em vez de uma classe nova espalhada à mão. */
   .tabular {
+    font-family: var(--font-display);
     font-variant-numeric: tabular-nums;
-    letter-spacing: -0.025em;
+    font-feature-settings: 'tnum' 1;
+    letter-spacing: -0.015em;
   }
 
   :focus-visible {
@@ -170,7 +211,6 @@
     cursor: pointer;
   }
 
-  /* Some com as setinhas dos inputs numéricos. */
   input[type='number']::-webkit-inner-spin-button,
   input[type='number']::-webkit-outer-spin-button {
     appearance: none;
@@ -190,6 +230,43 @@
     box-shadow: var(--sombra-cartao);
     position: relative;
     z-index: 1;
+  }
+
+  /*
+    Entrada em cascata. Um só momento coreografado ao abrir a página rende
+    mais do que micro-animação espalhada por toda parte.
+  */
+  .entrada > * {
+    animation: surgir 0.62s cubic-bezier(0.22, 0.72, 0.28, 1) both;
+  }
+  .entrada > *:nth-child(1) {
+    animation-delay: 0.02s;
+  }
+  .entrada > *:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  .entrada > *:nth-child(3) {
+    animation-delay: 0.18s;
+  }
+  .entrada > *:nth-child(4) {
+    animation-delay: 0.26s;
+  }
+  .entrada > *:nth-child(5) {
+    animation-delay: 0.34s;
+  }
+  .entrada > *:nth-child(n + 6) {
+    animation-delay: 0.42s;
+  }
+}
+
+@keyframes surgir {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 

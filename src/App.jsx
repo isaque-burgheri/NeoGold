@@ -183,7 +183,7 @@ export default function App() {
       {/* Ordem pensada para o uso do dia a dia: o plano em cima, porque é
           o que se abre com frequência; a dívida no fim, porque é consulta
           ocasional e não precisa dominar a primeira tela. */}
-      <main className="grid gap-5">
+      <main className="entrada grid gap-5">
         <OrcamentoCard estado={estado} aoAbrirConfig={abrirConfig} />
 
         <AportesCard

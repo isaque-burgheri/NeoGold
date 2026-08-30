@@ -2,14 +2,15 @@
  * Peças visuais reaproveitadas por todo o painel.
  */
 
-import { useEffect, useId, useRef } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { digitosParaValor, numero } from '../lib/format.js'
+import { IconeFechar } from './icones.jsx'
 
 /* ------------------------------------------------------------------ Cartão */
 
 export function Cartao({ children, className = '', ...props }) {
   return (
-    <section className={`cartao p-5 sm:p-6 ${className}`} {...props}>
+    <section className={`cartao p-6 sm:p-7 ${className}`} {...props}>
       {children}
     </section>
   )
@@ -17,19 +18,16 @@ export function Cartao({ children, className = '', ...props }) {
 
 export function CabecalhoCartao({ titulo, subtitulo, icone, acao }) {
   return (
-    <header className="mb-5 flex items-start justify-between gap-4">
+    <header className="mb-6 flex items-start justify-between gap-4">
       <div className="flex items-start gap-3">
         {icone ? (
-          <span
-            aria-hidden="true"
-            className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-xl bg-carvao-800 text-lg"
-          >
+          <span aria-hidden="true" className="mt-0.5 shrink-0 text-carvao-400">
             {icone}
           </span>
         ) : null}
         <div>
-          <h2 className="text-base font-semibold tracking-tight text-carvao-100">{titulo}</h2>
-          {subtitulo ? <p className="mt-0.5 text-sm text-carvao-400">{subtitulo}</p> : null}
+          <h2 className="text-[17px] font-semibold text-carvao-100">{titulo}</h2>
+          {subtitulo ? <p className="mt-0.5 text-[13px] text-carvao-400">{subtitulo}</p> : null}
         </div>
       </div>
       {acao ? <div className="shrink-0">{acao}</div> : null}
@@ -41,10 +39,10 @@ export function CabecalhoCartao({ titulo, subtitulo, icone, acao }) {
 
 const ESTILOS_BOTAO = {
   primario: 'bg-ouro-500 text-sobre-ouro hover:bg-ouro-600 font-semibold',
-  secundario: 'bg-carvao-800 text-carvao-100 hover:bg-carvao-700 border border-carvao-600',
+  secundario: 'bg-carvao-800 text-carvao-100 hover:bg-carvao-700',
   fantasma: 'text-carvao-300 hover:text-carvao-100 hover:bg-carvao-800',
   sucesso: 'bg-esmeralda-600 text-white hover:bg-esmeralda-500 font-semibold',
-  perigo: 'bg-rubi-600/15 text-rubi-400 hover:bg-rubi-600/25 border border-rubi-600/40',
+  perigo: 'bg-rubi-600/12 text-rubi-400 hover:bg-rubi-600/20',
 }
 
 const TAMANHOS_BOTAO = {
@@ -64,7 +62,7 @@ export function Botao({
   return (
     <button
       type={type}
-      className={`inline-flex items-center justify-center rounded-xl transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-40 ${ESTILOS_BOTAO[variante]} ${TAMANHOS_BOTAO[tamanho]} ${className}`}
+      className={`inline-flex items-center justify-center rounded-full transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-40 ${ESTILOS_BOTAO[variante]} ${TAMANHOS_BOTAO[tamanho]} ${className}`}
       {...props}
     >
       {children}
@@ -77,17 +75,15 @@ export function Botao({
 export function Campo({ rotulo, dica, children, className = '' }) {
   return (
     <label className={`block ${className}`}>
-      <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-carvao-400">
-        {rotulo}
-      </span>
+      <span className="mb-2 block text-[13px] font-medium text-carvao-300">{rotulo}</span>
       {children}
-      {dica ? <span className="mt-1.5 block text-xs text-carvao-500">{dica}</span> : null}
+      {dica ? <span className="mt-1.5 block text-[13px] text-carvao-500">{dica}</span> : null}
     </label>
   )
 }
 
 const CLASSE_INPUT =
-  'w-full rounded-xl border border-carvao-600 bg-carvao-850 px-3.5 py-2.5 text-sm text-carvao-100 placeholder:text-carvao-500 transition-colors focus:border-ouro-600 focus:bg-carvao-800'
+  'w-full rounded-xl border border-transparent bg-carvao-850 px-3.5 py-2.5 text-[15px] text-carvao-100 placeholder:text-carvao-500 transition-colors focus:border-ouro-600 focus:bg-carvao-800'
 
 export function InputTexto({ className = '', ...props }) {
   return <input type="text" className={`${CLASSE_INPUT} ${className}`} {...props} />
@@ -183,6 +179,15 @@ const CORES_BARRA = {
 
 export function BarraProgresso({ fracao, cor = 'ouro', altura = 'h-2.5', rotulo }) {
   const pct = Math.min(Math.max(Number.isFinite(fracao) ? fracao : 0, 0), 1)
+
+  // Começa em zero e cresce até o valor no primeiro quadro depois de montar.
+  // Sem isso a barra já nasce cheia e a transição de largura nunca dispara.
+  const [largura, setLargura] = useState(0)
+  useEffect(() => {
+    const quadro = requestAnimationFrame(() => setLargura(pct))
+    return () => cancelAnimationFrame(quadro)
+  }, [pct])
+
   return (
     <div
       role="progressbar"
@@ -193,8 +198,8 @@ export function BarraProgresso({ fracao, cor = 'ouro', altura = 'h-2.5', rotulo 
       className={`w-full overflow-hidden rounded-full bg-carvao-800 ${altura}`}
     >
       <div
-        className={`h-full rounded-full bg-gradient-to-r ${CORES_BARRA[cor]} transition-[width] duration-700 ease-out`}
-        style={{ width: `${pct * 100}%` }}
+        className={`h-full rounded-full bg-gradient-to-r ${CORES_BARRA[cor]} transition-[width] duration-[900ms] ease-out`}
+        style={{ width: `${largura * 100}%` }}
       />
     </div>
   )
@@ -203,17 +208,17 @@ export function BarraProgresso({ fracao, cor = 'ouro', altura = 'h-2.5', rotulo 
 /* ------------------------------------------------------------------ Selo */
 
 const CORES_SELO = {
-  neutro: 'bg-carvao-800 text-carvao-300 border-carvao-600',
-  ouro: 'bg-ouro-500/12 text-ouro-300 border-ouro-600/40',
-  esmeralda: 'bg-esmeralda-500/12 text-esmeralda-400 border-esmeralda-500/40',
-  safira: 'bg-safira-500/12 text-safira-400 border-safira-500/40',
-  rubi: 'bg-rubi-500/12 text-rubi-400 border-rubi-500/40',
+  neutro: 'bg-carvao-800 text-carvao-300',
+  ouro: 'bg-ouro-500/12 text-ouro-300',
+  esmeralda: 'bg-esmeralda-500/12 text-esmeralda-400',
+  safira: 'bg-safira-500/12 text-safira-400',
+  rubi: 'bg-rubi-500/12 text-rubi-400',
 }
 
 export function Selo({ children, cor = 'neutro', className = '' }) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium ${CORES_SELO[cor]} ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-medium ${CORES_SELO[cor]} ${className}`}
     >
       {children}
     </span>
@@ -225,9 +230,9 @@ export function Selo({ children, cor = 'neutro', className = '' }) {
 export function Metrica({ rotulo, valor, detalhe, cor = 'text-carvao-100', className = '' }) {
   return (
     <div className={className}>
-      <p className="text-xs font-medium uppercase tracking-wide text-carvao-400">{rotulo}</p>
-      <p className={`tabular mt-1 text-xl font-semibold sm:text-2xl ${cor}`}>{valor}</p>
-      {detalhe ? <p className="mt-0.5 text-xs text-carvao-500">{detalhe}</p> : null}
+      <p className="text-[13px] text-carvao-400">{rotulo}</p>
+      <p className={`tabular mt-1.5 text-[22px] font-semibold sm:text-[26px] ${cor}`}>{valor}</p>
+      {detalhe ? <p className="mt-1 text-[13px] text-carvao-500">{detalhe}</p> : null}
     </div>
   )
 }
@@ -287,14 +292,7 @@ export function Modal({ aberto, aoFechar, titulo, descricao, children, largura =
             aria-label="Fechar"
             className="-mr-1 grid size-8 shrink-0 place-items-center rounded-lg text-carvao-400 transition-colors hover:bg-carvao-800 hover:text-carvao-100"
           >
-            <svg viewBox="0 0 20 20" fill="none" className="size-4" aria-hidden="true">
-              <path
-                d="M5 5l10 10M15 5L5 15"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-              />
-            </svg>
+            <IconeFechar className="size-4" />
           </button>
         </header>
         <div className="max-h-[calc(100dvh-12rem)] overflow-y-auto px-5 py-5 sm:px-6">{children}</div>
@@ -307,9 +305,9 @@ export function Modal({ aberto, aoFechar, titulo, descricao, children, largura =
 
 export function EstadoVazio({ icone, titulo, descricao, acao }) {
   return (
-    <div className="rounded-xl border border-dashed border-carvao-600 px-6 py-10 text-center">
+    <div className="rounded-xl bg-carvao-850 px-6 py-12 text-center">
       {icone ? (
-        <span aria-hidden="true" className="mb-3 block text-2xl opacity-60">
+        <span aria-hidden="true" className="mb-3 flex justify-center text-carvao-500 [&>svg]:size-7">
           {icone}
         </span>
       ) : null}

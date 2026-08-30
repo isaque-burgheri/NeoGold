@@ -5,6 +5,7 @@
 import { moeda } from '../lib/format.js'
 import { calcularOrcamento } from '../lib/calculos.js'
 import { Cartao, CabecalhoCartao, Botao, Selo, EstadoVazio } from './ui.jsx'
+import { IconeOrcamento } from './icones.jsx'
 
 const CORES_FATIA = {
   essenciais: { barra: 'bg-safira-500', texto: 'text-safira-400' },
@@ -18,9 +19,9 @@ export function OrcamentoCard({ estado, aoAbrirConfig }) {
   if (o.renda <= 0) {
     return (
       <Cartao>
-        <CabecalhoCartao icone="⚖️" titulo="Orçamento 50 / 30 / 20" subtitulo="Regra do Primo Rico" />
+        <CabecalhoCartao icone={<IconeOrcamento />} titulo="Orçamento 50 / 30 / 20" subtitulo="Regra do Primo Rico" />
         <EstadoVazio
-          icone="⚖️"
+          icone={<IconeOrcamento />}
           titulo="Informe sua renda mensal"
           descricao="Com a renda cadastrada, o painel divide automaticamente entre essenciais, lazer e investimentos."
           acao={
@@ -36,7 +37,7 @@ export function OrcamentoCard({ estado, aoAbrirConfig }) {
   return (
     <Cartao>
       <CabecalhoCartao
-        icone="⚖️"
+        icone={<IconeOrcamento />}
         titulo="Orçamento 50 / 30 / 20"
         subtitulo={`Sobre ${moeda(o.renda)} de renda mensal`}
         acao={
@@ -71,10 +72,10 @@ export function OrcamentoCard({ estado, aoAbrirConfig }) {
         {o.fatias.map((f) => (
           <div key={f.id} className="rounded-xl bg-carvao-850 p-4">
             <div className="flex items-baseline justify-between gap-2">
-              <span className="text-xs font-medium uppercase tracking-wide text-carvao-400">
+              <span className="text-[13px] text-carvao-400">
                 {f.rotulo}
               </span>
-              <span className={`tabular text-xs font-semibold ${CORES_FATIA[f.id].texto}`}>
+              <span className="tabular text-[13px] text-carvao-500">
                 {f.percentual}%
               </span>
             </div>

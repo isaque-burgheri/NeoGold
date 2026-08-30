@@ -27,8 +27,31 @@ Consequências práticas:
   bloqueia esse padrão de nome.
 
 Não há Google Fonts, CDN nem analytics: a página carrega apenas os arquivos servidos
-por ela mesma. Com a sincronização desligada — o padrão — ela não faz nenhuma requisição
-de rede depois de carregar.
+por ela mesma, fontes incluídas. Com a sincronização desligada — o padrão — ela não faz
+nenhuma requisição de rede depois de carregar.
+
+---
+
+## Identidade visual
+
+Duas famílias, ambas hospedadas no próprio site, só o subconjunto latino (95 KB somados):
+
+| Família | Onde | Por quê |
+| --- | --- | --- |
+| **Fraunces** | Títulos e todas as cifras | Serifada de display com eixo óptico. Dinheiro em serifa é a convenção de extrato bancário e relatório financeiro há um século. |
+| **Instrument Sans** | Texto de interface | Onde serifa atrapalharia a leitura de rótulos e ajuda. |
+
+A paleta tem **um acento só** — o dourado — sobre neutros quentes. As cores semânticas
+existem dessaturadas de propósito: precisam sinalizar "quitado" e "vencendo" sem competir
+pela atenção. O modo claro é papel, não branco clínico, porque dourado sobre branco frio
+vira mostarda.
+
+Uma regra sustenta os dois temas e vale para toda cor nova:
+
+- **300 e 400 são texto** — escurecem no modo claro, para ter contraste
+- **500 e 600 são preenchimento, borda e barra** — seguem saturados nos dois
+
+Contraste verificado nos dois temas contra WCAG AA, compondo as camadas translúcidas.
 
 ### Sincronização entre aparelhos (opcional)
 
@@ -143,7 +166,8 @@ api/
 └── plano.js                 # função serverless: guarda o pacote cifrado
 src/
 ├── main.jsx                 # ponto de entrada
-├── index.css                # Tailwind + paleta NeoGold
+├── assets/                  # as duas fontes .woff2 (subconjunto latino)
+├── index.css                # tipografia, paleta, atmosfera e animação de entrada
 ├── App.jsx                  # composição do painel e todas as ações
 ├── lib/
 │   ├── defaults.js          # estado inicial (sem dado real) e referência do plano
@@ -153,6 +177,7 @@ src/
 │   ├── cripto.js            # PBKDF2 + AES-GCM da sincronização
 │   └── sync.js              # ciclo de sincronização e resolução de conflito
 └── components/
+    ├── icones.jsx           # ícones de traço, monocromáticos
     ├── ui.jsx               # cartão, botão, campos, barra, selo, modal
     ├── Header.jsx           # cabeçalho e estado do armazenamento
     ├── ResumoGeral.jsx      # faixa de indicadores

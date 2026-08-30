@@ -3,6 +3,7 @@
  */
 
 import { Botao, Selo } from './ui.jsx'
+import { IconeConfig, IconeNuvem, IconeCadeado, IconeAlerta } from './icones.jsx'
 
 function Logo() {
   return (
@@ -21,24 +22,30 @@ function SeloSync({ sync, aoAbrirConfig }) {
   if (sync.situacao === 'conflito') {
     return (
       <button type="button" onClick={() => aoAbrirConfig('sync')}>
-        <Selo cor="rubi">⚠ Versões em conflito</Selo>
+        <Selo cor="rubi">
+          <IconeAlerta className="size-3.5" /> Versões em conflito
+        </Selo>
       </button>
     )
   }
   if (sync.situacao === 'sincronizando' || sync.situacao === 'abrindo') {
-    return <Selo cor="ouro">☁ Sincronizando…</Selo>
+    return <Selo cor="ouro">
+        <IconeNuvem className="size-3.5" /> Sincronizando…
+      </Selo>
   }
   if (sync.situacao === 'ok') {
     return (
       <Selo cor="esmeralda" className="hidden sm:inline-flex">
-        ☁ Sincronizado
+        <IconeNuvem className="size-3.5" /> Sincronizado
       </Selo>
     )
   }
   if (sync.situacao === 'erro') {
     return (
       <button type="button" onClick={() => aoAbrirConfig('sync')}>
-        <Selo cor="rubi">☁ Falha na sincronização</Selo>
+        <Selo cor="rubi">
+          <IconeNuvem className="size-3.5" /> Falha na sincronização
+        </Selo>
       </button>
     )
   }
@@ -71,7 +78,7 @@ export function Header({ nome, persistencia, sync, aoAbrirConfig }) {
 
         {persistencia === 'ok' && !sincronizando ? (
           <Selo cor="esmeralda" className="hidden sm:inline-flex">
-            🔒 Salvo localmente
+            <IconeCadeado className="size-3.5" /> Salvo localmente
           </Selo>
         ) : null}
         {persistencia === 'indisponivel' ? (
@@ -80,7 +87,7 @@ export function Header({ nome, persistencia, sync, aoAbrirConfig }) {
         {persistencia === 'erro' ? <Selo cor="rubi">Falha ao salvar</Selo> : null}
 
         <Botao variante="secundario" onClick={() => aoAbrirConfig('perfil')}>
-          <span aria-hidden="true">⚙</span> Configurar
+          <IconeConfig className="size-4" /> Configurar
         </Botao>
       </div>
     </header>

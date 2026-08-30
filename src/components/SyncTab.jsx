@@ -7,6 +7,7 @@ import { moeda, data } from '../lib/format.js'
 import { avaliarSenha } from '../lib/cripto.js'
 import { calcularResumo } from '../lib/calculos.js'
 import { Botao, Campo, InputSenha, Selo, Metrica } from './ui.jsx'
+import { IconeCheck } from './icones.jsx'
 
 const CORES_FORCA = {
   fraca: 'text-rubi-400',
@@ -98,7 +99,9 @@ function PainelConectado({ sync, aoDesconectar }) {
             {sync.situacao === 'sincronizando' ? (
               <Selo cor="ouro">Enviando…</Selo>
             ) : (
-              <Selo cor="esmeralda">✓ Em dia com a nuvem</Selo>
+              <Selo cor="esmeralda">
+                <IconeCheck className="size-3.5" /> Em dia com a nuvem
+              </Selo>
             )}
             {sync.senhaLembrada ? <Selo cor="neutro">Senha lembrada neste aparelho</Selo> : null}
           </div>

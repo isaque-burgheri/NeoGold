@@ -1,16 +1,16 @@
 /**
- * Faixa de indicadores no topo do painel.
+ * Faixa de indicadores gerais do plano.
  */
 
 import { moeda } from '../lib/format.js'
 import { calcularResumo } from '../lib/calculos.js'
 import { Cartao, Metrica } from './ui.jsx'
 
-export function ResumoTopo({ estado }) {
+export function ResumoGeral({ estado }) {
   const r = calcularResumo(estado)
 
   return (
-    <Cartao className="mb-5">
+    <Cartao>
       <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
         <Metrica
           rotulo="Dívida em aberto"

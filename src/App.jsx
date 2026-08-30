@@ -14,7 +14,7 @@ import { hojeISO } from './lib/format.js'
 import { novaDivida, novaMeta } from './lib/defaults.js'
 
 import { Header } from './components/Header.jsx'
-import { ResumoTopo } from './components/ResumoTopo.jsx'
+import { ResumoGeral } from './components/ResumoGeral.jsx'
 import { DividasCard } from './components/DividasCard.jsx'
 import { MetasCard } from './components/MetasCard.jsx'
 import { OrcamentoCard } from './components/OrcamentoCard.jsx'
@@ -180,12 +180,16 @@ export default function App() {
         <BoasVindas aoComecar={comecarPreenchimento} aoDispensar={dispensarBoasVindas} />
       ) : null}
 
-      <ResumoTopo estado={estado} />
-
+      {/* Ordem pensada para o uso do dia a dia: o plano em cima, porque é
+          o que se abre com frequência; a dívida no fim, porque é consulta
+          ocasional e não precisa dominar a primeira tela. */}
       <main className="grid gap-5">
-        <DividasCard
+        <OrcamentoCard estado={estado} aoAbrirConfig={abrirConfig} />
+
+        <AportesCard
           estado={estado}
-          aoAlternarQuitada={alternarQuitada}
+          aoAvancarCiclo={avancarCiclo}
+          aoAlterarAcumulado={alterarPilar}
           aoAbrirConfig={abrirConfig}
         />
 
@@ -204,12 +208,11 @@ export default function App() {
           />
         </div>
 
-        <OrcamentoCard estado={estado} aoAbrirConfig={abrirConfig} />
+        <ResumoGeral estado={estado} />
 
-        <AportesCard
+        <DividasCard
           estado={estado}
-          aoAvancarCiclo={avancarCiclo}
-          aoAlterarAcumulado={alterarPilar}
+          aoAlternarQuitada={alternarQuitada}
           aoAbrirConfig={abrirConfig}
         />
       </main>

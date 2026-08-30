@@ -66,7 +66,7 @@ lado a lado com os valores de cada uma e pergunta qual vale.
 
 | Bloco | Para quê |
 | --- | --- |
-| **Resumo do topo** | Dívida em aberto, economia negociada, patrimônio guardado e aporte mensal |
+| **Resumo geral** | Dívida em aberto, economia negociada, patrimônio guardado e aporte mensal |
 | **Dívidas e renegociações** | Valor original × proposta à vista, economia e % de desconto, prazo da proposta com alerta de vencimento e botão **Marcar como quitada** |
 | **Planejador de metas** | Objetivo, meta em dinheiro, aporte mensal, barra de progresso e data prevista de conclusão |
 | **Reserva de emergência** | Meta de 6 a 12 meses do custo de vida, progresso e previsão |
@@ -155,7 +155,7 @@ src/
 └── components/
     ├── ui.jsx               # cartão, botão, campos, barra, selo, modal
     ├── Header.jsx           # cabeçalho e estado do armazenamento
-    ├── ResumoTopo.jsx       # faixa de indicadores
+    ├── ResumoGeral.jsx      # faixa de indicadores
     ├── DividasCard.jsx      # dívidas e renegociações
     ├── MetasCard.jsx        # planejador de metas
     ├── ReservaCard.jsx      # reserva de emergência

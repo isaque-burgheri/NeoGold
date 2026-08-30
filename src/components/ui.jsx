@@ -97,6 +97,18 @@ export function InputData({ className = '', ...props }) {
   return <input type="date" className={`${CLASSE_INPUT} tabular ${className}`} {...props} />
 }
 
+export function InputSenha({ className = '', ...props }) {
+  return (
+    <input
+      type="password"
+      autoComplete="current-password"
+      spellCheck="false"
+      className={`${CLASSE_INPUT} ${className}`}
+      {...props}
+    />
+  )
+}
+
 /**
  * Campo de dinheiro com máscara de centavos: quem digita "552389" vê
  * "5.523,89". Sempre entrega um número para o `onChange`.

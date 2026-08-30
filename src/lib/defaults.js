@@ -79,6 +79,27 @@ export function estadoInicial() {
   }
 }
 
+/**
+ * Um plano em que ninguém tocou ainda.
+ *
+ * Importa para a sincronização: um aparelho recém-aberto tem
+ * `atualizadoEm` de agora e por isso *parece* mais novo que a nuvem.
+ * Sem esta checagem, todo aparelho novo abriria com um falso conflito
+ * em vez de simplesmente baixar os dados.
+ */
+export function planoVazio(estado) {
+  if (!estado) return true
+  return (
+    !estado.perfil?.nome &&
+    !estado.perfil?.rendaMensal &&
+    !estado.perfil?.custoVidaMensal &&
+    (estado.dividas?.length ?? 0) === 0 &&
+    (estado.metas?.length ?? 0) === 0 &&
+    !estado.reserva?.acumulado &&
+    (estado.investimentos?.pilares ?? []).every((p) => !p.acumulado)
+  )
+}
+
 /** Cria uma dívida vazia pronta para edição. */
 export function novaDivida() {
   return {

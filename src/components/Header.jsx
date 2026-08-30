@@ -1,5 +1,5 @@
 /**
- * Cabeçalho: identidade, aviso de privacidade e acesso à configuração.
+ * Cabeçalho: identidade, estado do armazenamento e acesso à configuração.
  */
 
 import { Botao, Selo } from './ui.jsx'
@@ -15,7 +15,39 @@ function Logo() {
   )
 }
 
-export function Header({ nome, persistencia, aoAbrirConfig }) {
+function SeloSync({ sync, aoAbrirConfig }) {
+  if (!sync) return null
+
+  if (sync.situacao === 'conflito') {
+    return (
+      <button type="button" onClick={() => aoAbrirConfig('sync')}>
+        <Selo cor="rubi">⚠ Versões em conflito</Selo>
+      </button>
+    )
+  }
+  if (sync.situacao === 'sincronizando' || sync.situacao === 'abrindo') {
+    return <Selo cor="ouro">☁ Sincronizando…</Selo>
+  }
+  if (sync.situacao === 'ok') {
+    return (
+      <Selo cor="esmeralda" className="hidden sm:inline-flex">
+        ☁ Sincronizado
+      </Selo>
+    )
+  }
+  if (sync.situacao === 'erro') {
+    return (
+      <button type="button" onClick={() => aoAbrirConfig('sync')}>
+        <Selo cor="rubi">☁ Falha na sincronização</Selo>
+      </button>
+    )
+  }
+  return null
+}
+
+export function Header({ nome, persistencia, sync, aoAbrirConfig }) {
+  const sincronizando = sync?.ligado
+
   return (
     <header className="relative z-10 mb-6 flex flex-wrap items-center justify-between gap-4">
       <div className="flex items-center gap-3">
@@ -27,13 +59,17 @@ export function Header({ nome, persistencia, aoAbrirConfig }) {
           </h1>
           <p className="text-sm text-carvao-400">
             {nome ? `Olá, ${nome}. ` : ''}
-            Seus dados ficam só neste navegador.
+            {sincronizando
+              ? 'Seus dados sincronizam criptografados entre seus aparelhos.'
+              : 'Seus dados ficam só neste navegador.'}
           </p>
         </div>
       </div>
 
       <div className="flex items-center gap-3">
-        {persistencia === 'ok' ? (
+        <SeloSync sync={sync} aoAbrirConfig={aoAbrirConfig} />
+
+        {persistencia === 'ok' && !sincronizando ? (
           <Selo cor="esmeralda" className="hidden sm:inline-flex">
             🔒 Salvo localmente
           </Selo>

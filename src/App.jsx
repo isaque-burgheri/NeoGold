@@ -1,12 +1,15 @@
 /**
  * NeoGold — painel de plano financeiro e controle de dívidas.
  *
- * Sem backend, sem login, sem rede: o estado inteiro vive no localStorage
- * do navegador de quem abre a página.
+ * Por padrão o estado inteiro vive no localStorage do navegador: sem
+ * backend, sem login, sem rede. A sincronização entre aparelhos é
+ * opcional e, quando ligada, sobe apenas bytes cifrados — a chave nunca
+ * sai daqui. Ver `lib/sync.js` e `lib/cripto.js`.
  */
 
 import { useCallback, useState } from 'react'
 import { usePlano } from './lib/storage.js'
+import { useSync } from './lib/sync.js'
 import { hojeISO } from './lib/format.js'
 import { novaDivida, novaMeta } from './lib/defaults.js'
 
@@ -45,6 +48,7 @@ function BoasVindas({ aoComecar, aoDispensar }) {
 
 export default function App() {
   const { estado, atualizar, substituir, apagarTudo, persistencia } = usePlano()
+  const sync = useSync({ estado, substituir })
   const [config, setConfig] = useState({ aberto: false, aba: 'perfil' })
 
   const abrirConfig = useCallback((aba = 'perfil') => {
@@ -168,6 +172,7 @@ export default function App() {
       <Header
         nome={estado.perfil.nome}
         persistencia={persistencia}
+        sync={sync}
         aoAbrirConfig={abrirConfig}
       />
 
@@ -216,8 +221,9 @@ export default function App() {
           plano, não recomendação de investimento — decisões sobre onde aplicar são suas.
         </p>
         <p className="mt-2">
-          Nenhum dado sai deste navegador. Faça backup pelo painel de configuração antes de limpar
-          os dados do site.
+          {sync.ligado
+            ? 'A sincronização envia apenas o pacote cifrado: a senha mestra nunca sai deste navegador e sem ela ninguém abre o conteúdo.'
+            : 'Nenhum dado sai deste navegador. Faça backup pelo painel de configuração antes de limpar os dados do site.'}
         </p>
       </footer>
 
@@ -230,6 +236,7 @@ export default function App() {
         atualizar={atualizar}
         substituir={substituir}
         apagarTudo={apagarTudo}
+        sync={sync}
       />
     </div>
   )

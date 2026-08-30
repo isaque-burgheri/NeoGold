@@ -8,6 +8,7 @@ import { moeda, hojeISO } from '../lib/format.js'
 import { novaDivida, novaMeta } from '../lib/defaults.js'
 import { calcularOrcamento } from '../lib/calculos.js'
 import { exportarArquivo, lerArquivo } from '../lib/storage.js'
+import { SyncTab } from './SyncTab.jsx'
 import {
   Modal,
   Botao,
@@ -26,6 +27,7 @@ const ABAS = [
   { id: 'metas', rotulo: 'Metas', icone: '🎯' },
   { id: 'investimentos', rotulo: 'Investimentos', icone: '📈' },
   { id: 'dados', rotulo: 'Backup e privacidade', icone: '🔒' },
+  { id: 'sync', rotulo: 'Sincronizar', icone: '☁️' },
 ]
 
 function Secao({ titulo, descricao, children }) {
@@ -508,7 +510,17 @@ function AbaDados({ estado, substituir, apagarTudo, aoFechar }) {
 
 /* -------------------------------------------------------------------- Modal */
 
-export function ConfigModal({ aberto, aba, aoTrocarAba, aoFechar, estado, atualizar, substituir, apagarTudo }) {
+export function ConfigModal({
+  aberto,
+  aba,
+  aoTrocarAba,
+  aoFechar,
+  estado,
+  atualizar,
+  substituir,
+  apagarTudo,
+  sync,
+}) {
   return (
     <Modal
       aberto={aberto}
@@ -550,6 +562,7 @@ export function ConfigModal({ aberto, aba, aoTrocarAba, aoFechar, estado, atuali
           aoFechar={aoFechar}
         />
       ) : null}
+      {aba === 'sync' ? <SyncTab sync={sync} /> : null}
 
       <footer className="mt-6 flex items-center justify-between gap-3 border-t border-carvao-700 pt-4">
         <p className="text-xs text-carvao-500">Alterações são salvas automaticamente.</p>

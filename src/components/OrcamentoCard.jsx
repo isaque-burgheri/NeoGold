@@ -72,10 +72,10 @@ export function OrcamentoCard({ estado, aoAbrirConfig }) {
         {o.fatias.map((f) => (
           <div key={f.id} className="rounded-xl bg-carvao-850 p-4">
             <div className="flex items-baseline justify-between gap-2">
-              <span className="text-[13px] text-carvao-400">
+              <span className="text-[0.8125rem] text-carvao-400">
                 {f.rotulo}
               </span>
-              <span className="tabular text-[13px] text-carvao-500">
+              <span className="tabular text-[0.8125rem] text-carvao-500">
                 {f.percentual}%
               </span>
             </div>

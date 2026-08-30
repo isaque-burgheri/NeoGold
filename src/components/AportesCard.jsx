@@ -38,7 +38,7 @@ function Pilar({ pilar, aoAlterarAcumulado }) {
       <p className="mt-2 text-xs leading-relaxed text-carvao-500">{pilar.exemplos}</p>
 
       <label className="mt-4 block">
-        <span className="mb-1.5 block text-[13px] text-carvao-500">
+        <span className="mb-1.5 block text-[0.8125rem] text-carvao-500">
           Total já aportado
         </span>
         <InputMoeda
@@ -93,10 +93,10 @@ export function AportesCard({ estado, aoAvancarCiclo, aoAlterarAcumulado, aoAbri
       <div className="mb-5 grid gap-3 sm:grid-cols-2">
         <div className="rounded-xl bg-carvao-850 p-4">
           <div className="flex items-baseline justify-between gap-2">
-            <span className="text-[13px] text-carvao-400">
+            <span className="text-[0.8125rem] text-carvao-400">
               Reserva de emergência
             </span>
-            <span className="tabular text-[13px] text-carvao-500">{a.percReserva}%</span>
+            <span className="tabular text-[0.8125rem] text-carvao-500">{a.percReserva}%</span>
           </div>
           <p className="tabular mt-1.5 text-xl font-semibold text-carvao-100">
             {moeda(a.paraReserva)}
@@ -107,10 +107,10 @@ export function AportesCard({ estado, aoAvancarCiclo, aoAlterarAcumulado, aoAbri
         </div>
         <div className="rounded-xl bg-carvao-850 p-4">
           <div className="flex items-baseline justify-between gap-2">
-            <span className="text-[13px] text-carvao-400">
+            <span className="text-[0.8125rem] text-carvao-400">
               Renda variável
             </span>
-            <span className="tabular text-[13px] text-carvao-500">{a.percRendaVariavel}%</span>
+            <span className="tabular text-[0.8125rem] text-carvao-500">{a.percRendaVariavel}%</span>
           </div>
           <p className="tabular mt-1.5 text-xl font-semibold text-carvao-100">
             {moeda(a.paraRendaVariavel)}
@@ -124,7 +124,7 @@ export function AportesCard({ estado, aoAvancarCiclo, aoAlterarAcumulado, aoAbri
       {/* Ciclo do mês */}
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-ouro-500/[0.08] px-4 py-3.5">
         <div>
-          <p className="text-[13px] text-carvao-400">
+          <p className="text-[0.8125rem] text-carvao-400">
             Compra deste mês
           </p>
           <p className="mt-0.5 text-sm font-semibold text-ouro-300">{a.rotuloDaVez}</p>

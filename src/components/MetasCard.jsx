@@ -39,7 +39,7 @@ function ItemMeta({ meta, estado, aoAportar, aoEditar, aoAlterarAcumulado }) {
         <button
           type="button"
           onClick={() => aoEditar(meta.id)}
-          className="shrink-0 rounded-lg px-2 py-1 text-xs text-carvao-400 transition-colors hover:bg-carvao-800 hover:text-carvao-100"
+          className="alvo-toque shrink-0 rounded-lg px-2 py-1 text-xs text-carvao-400 transition-colors hover:bg-carvao-800 hover:text-carvao-100"
         >
           Editar
         </button>
@@ -66,7 +66,7 @@ function ItemMeta({ meta, estado, aoAportar, aoEditar, aoAlterarAcumulado }) {
       {!c.concluida ? (
         <div className="mt-4 grid gap-3 border-t border-carvao-700 pt-4 sm:grid-cols-2">
           <div>
-            <p className="text-[13px] text-carvao-500">
+            <p className="text-[0.8125rem] text-carvao-500">
               Aporte mensal
             </p>
             <p className="tabular mt-1 text-sm font-semibold text-carvao-100">
@@ -77,7 +77,7 @@ function ItemMeta({ meta, estado, aoAportar, aoEditar, aoAlterarAcumulado }) {
             </p>
           </div>
           <div>
-            <p className="text-[13px] text-carvao-500">Previsão</p>
+            <p className="text-[0.8125rem] text-carvao-500">Previsão</p>
             <p className="mt-1 text-sm font-semibold text-carvao-100">
               {c.mesesRestantes > 0 ? (
                 <>
@@ -96,7 +96,7 @@ function ItemMeta({ meta, estado, aoAportar, aoEditar, aoAlterarAcumulado }) {
 
       <footer className="mt-4 flex flex-wrap items-end gap-3 border-t border-carvao-700 pt-4">
         <label className="min-w-0 flex-1">
-          <span className="mb-1.5 block text-[13px] text-carvao-500">
+          <span className="mb-1.5 block text-[0.8125rem] text-carvao-500">
             Já guardado
           </span>
           <InputMoeda

@@ -85,11 +85,11 @@ export function ReservaCard({ estado, aoAlterarAcumulado, aoAportar, aoAbrirConf
       ) : (
         <div className="mt-4 grid gap-3 rounded-xl bg-carvao-850 p-4 sm:grid-cols-3">
           <div>
-            <p className="text-[13px] text-carvao-500">Faltam</p>
+            <p className="text-[0.8125rem] text-carvao-500">Faltam</p>
             <p className="tabular mt-1 text-sm font-semibold text-carvao-100">{moeda(r.falta)}</p>
           </div>
           <div>
-            <p className="text-[13px] text-carvao-500">
+            <p className="text-[0.8125rem] text-carvao-500">
               Aporte mensal
             </p>
             <p className="tabular mt-1 text-sm font-semibold text-carvao-100">
@@ -97,7 +97,7 @@ export function ReservaCard({ estado, aoAlterarAcumulado, aoAportar, aoAbrirConf
             </p>
           </div>
           <div>
-            <p className="text-[13px] text-carvao-500">Previsão</p>
+            <p className="text-[0.8125rem] text-carvao-500">Previsão</p>
             <p className="mt-1 text-sm font-semibold text-carvao-100">
               {r.mesesRestantes > 0 ? (
                 <>
@@ -116,7 +116,7 @@ export function ReservaCard({ estado, aoAlterarAcumulado, aoAportar, aoAbrirConf
 
       <div className="mt-5 flex flex-wrap items-end gap-3">
         <label className="min-w-0 flex-1">
-          <span className="mb-1.5 block text-[13px] text-carvao-500">
+          <span className="mb-1.5 block text-[0.8125rem] text-carvao-500">
             Saldo atual da reserva
           </span>
           <InputMoeda

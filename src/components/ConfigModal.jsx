@@ -168,7 +168,7 @@ function AbaDividas({ estado, atualizar }) {
               return (
                 <div key={d.id} className="rounded-xl border border-carvao-700 bg-carvao-850 p-4">
                   <div className="mb-3 flex items-center justify-between gap-2">
-                    <span className="text-[13px] text-carvao-500">
+                    <span className="text-[0.8125rem] text-carvao-500">
                       {d.credor || 'Nova dívida'}
                     </span>
                     <div className="flex items-center gap-2">
@@ -279,7 +279,7 @@ function AbaMetas({ estado, atualizar }) {
           {estado.metas.map((m) => (
             <div key={m.id} className="rounded-xl border border-carvao-700 bg-carvao-850 p-4">
               <div className="mb-3 flex items-center justify-between gap-2">
-                <span className="text-[13px] text-carvao-500">
+                <span className="text-[0.8125rem] text-carvao-500">
                   {m.titulo || 'Nova meta'}
                 </span>
                 <BotaoRemover
@@ -544,7 +544,7 @@ export function ConfigModal({
             type="button"
             onClick={() => aoTrocarAba(item.id)}
             aria-current={aba === item.id ? 'page' : undefined}
-            className={`flex shrink-0 items-center gap-2 rounded-full px-3.5 py-2 text-[13px] transition-colors ${
+            className={`flex shrink-0 items-center gap-2 rounded-full px-3.5 py-2 text-[0.8125rem] transition-colors ${
               aba === item.id
                 ? 'bg-ouro-500/15 font-semibold text-ouro-300'
                 : 'text-carvao-400 hover:bg-carvao-800 hover:text-carvao-100'

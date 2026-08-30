@@ -26,8 +26,8 @@ export function CabecalhoCartao({ titulo, subtitulo, icone, acao }) {
           </span>
         ) : null}
         <div>
-          <h2 className="text-[17px] font-semibold text-carvao-100">{titulo}</h2>
-          {subtitulo ? <p className="mt-0.5 text-[13px] text-carvao-400">{subtitulo}</p> : null}
+          <h2 className="text-[1.0625rem] font-semibold text-carvao-100">{titulo}</h2>
+          {subtitulo ? <p className="mt-0.5 text-[0.8125rem] text-carvao-400">{subtitulo}</p> : null}
         </div>
       </div>
       {acao ? <div className="shrink-0">{acao}</div> : null}
@@ -62,7 +62,7 @@ export function Botao({
   return (
     <button
       type={type}
-      className={`inline-flex items-center justify-center rounded-full transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-40 ${ESTILOS_BOTAO[variante]} ${TAMANHOS_BOTAO[tamanho]} ${className}`}
+      className={`alvo-toque inline-flex items-center justify-center rounded-full transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-40 ${ESTILOS_BOTAO[variante]} ${TAMANHOS_BOTAO[tamanho]} ${className}`}
       {...props}
     >
       {children}
@@ -75,15 +75,15 @@ export function Botao({
 export function Campo({ rotulo, dica, children, className = '' }) {
   return (
     <label className={`block ${className}`}>
-      <span className="mb-2 block text-[13px] font-medium text-carvao-300">{rotulo}</span>
+      <span className="mb-2 block text-[0.8125rem] font-medium text-carvao-300">{rotulo}</span>
       {children}
-      {dica ? <span className="mt-1.5 block text-[13px] text-carvao-500">{dica}</span> : null}
+      {dica ? <span className="mt-1.5 block text-[0.8125rem] text-carvao-500">{dica}</span> : null}
     </label>
   )
 }
 
 const CLASSE_INPUT =
-  'w-full rounded-xl border border-transparent bg-carvao-850 px-3.5 py-2.5 text-[15px] text-carvao-100 placeholder:text-carvao-500 transition-colors focus:border-ouro-600 focus:bg-carvao-800'
+  'w-full rounded-xl border border-transparent bg-carvao-850 px-3.5 py-2.5 text-[0.9375rem] text-carvao-100 placeholder:text-carvao-500 transition-colors focus:border-ouro-600 focus:bg-carvao-800'
 
 export function InputTexto({ className = '', ...props }) {
   return <input type="text" className={`${CLASSE_INPUT} ${className}`} {...props} />
@@ -218,7 +218,7 @@ const CORES_SELO = {
 export function Selo({ children, cor = 'neutro', className = '' }) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-medium ${CORES_SELO[cor]} ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.75rem] font-medium ${CORES_SELO[cor]} ${className}`}
     >
       {children}
     </span>
@@ -230,9 +230,9 @@ export function Selo({ children, cor = 'neutro', className = '' }) {
 export function Metrica({ rotulo, valor, detalhe, cor = 'text-carvao-100', className = '' }) {
   return (
     <div className={className}>
-      <p className="text-[13px] text-carvao-400">{rotulo}</p>
-      <p className={`tabular mt-1.5 text-[22px] font-semibold sm:text-[26px] ${cor}`}>{valor}</p>
-      {detalhe ? <p className="mt-1 text-[13px] text-carvao-500">{detalhe}</p> : null}
+      <p className="text-[0.8125rem] text-carvao-400">{rotulo}</p>
+      <p className={`tabular mt-1.5 text-[1.375rem] font-semibold sm:text-[1.625rem] ${cor}`}>{valor}</p>
+      {detalhe ? <p className="mt-1 text-[0.8125rem] text-carvao-500">{detalhe}</p> : null}
     </div>
   )
 }

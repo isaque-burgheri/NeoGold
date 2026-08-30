@@ -233,6 +233,22 @@
   }
 
   /*
+    Amplia a área clicável até 44px sem mexer no tamanho visual nem no
+    layout. Botões pequenos ficam confortáveis no celular continuando
+    discretos na tela grande.
+  */
+  .alvo-toque {
+    position: relative;
+  }
+  .alvo-toque::after {
+    content: '';
+    position: absolute;
+    inset: 50% 0 0 0;
+    translate: 0 -50%;
+    min-height: 44px;
+  }
+
+  /*
     Entrada em cascata. Um só momento coreografado ao abrir a página rende
     mais do que micro-animação espalhada por toda parte.
   */

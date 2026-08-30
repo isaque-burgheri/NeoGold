@@ -54,7 +54,7 @@ function ItemDivida({ divida, aoAlternarQuitada, aoEditar }) {
         <button
           type="button"
           onClick={() => aoEditar(divida.id)}
-          className="shrink-0 rounded-lg px-2 py-1 text-xs text-carvao-400 transition-colors hover:bg-carvao-800 hover:text-carvao-100"
+          className="alvo-toque shrink-0 rounded-lg px-2 py-1 text-xs text-carvao-400 transition-colors hover:bg-carvao-800 hover:text-carvao-100"
         >
           Editar
         </button>
@@ -62,13 +62,13 @@ function ItemDivida({ divida, aoAlternarQuitada, aoEditar }) {
 
       <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
         <div>
-          <p className="text-[13px] text-carvao-500">Valor original</p>
+          <p className="text-[0.8125rem] text-carvao-500">Valor original</p>
           <p className="tabular mt-1 text-base text-carvao-400 line-through decoration-rubi-500/60">
             {moeda(valorOriginal)}
           </p>
         </div>
         <div>
-          <p className="text-[13px] text-carvao-500">
+          <p className="text-[0.8125rem] text-carvao-500">
             {quitada ? 'Valor pago' : 'Proposta à vista'}
           </p>
           <p
@@ -80,7 +80,7 @@ function ItemDivida({ divida, aoAlternarQuitada, aoEditar }) {
           </p>
         </div>
         <div className="col-span-2 sm:col-span-1">
-          <p className="text-[13px] text-carvao-500">Economia</p>
+          <p className="text-[0.8125rem] text-carvao-500">Economia</p>
           <p className="tabular mt-1 text-lg font-semibold text-esmeralda-400 sm:text-xl">
             {moeda(economia)}
           </p>

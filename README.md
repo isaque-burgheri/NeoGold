@@ -4,6 +4,13 @@ Painel pessoal de **plano financeiro e controle de dívidas**. Roda inteiro no n
 sem login e sem cadastro. Por padrão nada sai do seu dispositivo; a sincronização entre
 aparelhos é opcional e sobe apenas conteúdo cifrado.
 
+| Tema escuro | Tema claro |
+| --- | --- |
+| ![Painel do NeoGold no tema escuro: fundo quase preto com halos violeta e cartões de vidro fosco](docs/painel-escuro.png) | ![O mesmo painel no tema claro: degradê pastel de creme a lavanda com cartões de vidro branco](docs/painel-claro.png) |
+
+<sub>Os valores das imagens são fictícios. As imagens são geradas por
+<code>npm run prints</code> — ver <a href="scripts/prints.mjs">scripts/prints.mjs</a>.</sub>
+
 > Estrutura baseada na regra **50 / 30 / 20** e na divisão dos 20% em paralelo entre
 > reserva de emergência e renda variável, com a renda variável pulverizada em três
 > pilares iguais (Ações BR, FIIs e bolsa americana em dólar).
@@ -126,7 +133,12 @@ Outros comandos:
 ```bash
 npm run build      # gera dist/ para produção
 npm run preview    # serve o dist/ localmente
+npm run prints     # regenera as imagens do README (exige build antes)
 ```
+
+`npm run prints` fotografa o `dist/` nos dois temas usando o Chrome já
+instalado na máquina — não baixa navegador. Rode depois de mexer na
+interface, para as imagens do README não envelhecerem.
 
 ---
 

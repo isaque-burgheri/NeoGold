@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "build:pages": "cross-env GITHUB_PAGES=true vite build"
+    "build:pages": "cross-env GITHUB_PAGES=true vite build",
+    "prints": "node scripts/prints.mjs"
   },
   "dependencies": {
     "react": "^19.2.8",
@@ -18,6 +19,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "@vitejs/plugin-react": "^6.1.1",
     "cross-env": "^10.1.0",
+    "puppeteer-core": "^25.9.0",
     "tailwindcss": "^4.3.3",
     "vite": "^8.2.2"
   }

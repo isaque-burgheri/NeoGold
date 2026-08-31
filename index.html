@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0a0a0b" />
+    <meta name="theme-color" content="#08070c" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f4f1" media="(prefers-color-scheme: light)" />
     <meta name="robots" content="noindex, nofollow" />
     <meta
       name="description"
@@ -11,6 +12,28 @@
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>NeoGold — Plano Financeiro</title>
+    <script>
+      /*
+        Aplica o tema antes da primeira pintura. Sem isto a página piscaria
+        no tema errado a cada carregamento, enquanto o React não monta.
+        A lógica espelha lib/tema.js de propósito: aqui não dá para
+        importar módulo sem perder o "antes de pintar".
+      */
+      (function () {
+        try {
+          var escolha = localStorage.getItem('neogold:tema')
+          var tema =
+            escolha === 'claro' || escolha === 'escuro'
+              ? escolha
+              : matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'escuro'
+                : 'claro'
+          document.documentElement.dataset.tema = tema
+        } catch (e) {
+          document.documentElement.dataset.tema = 'escuro'
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

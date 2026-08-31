@@ -13,6 +13,7 @@ import {
   EstadoVazio,
   InputMoeda,
 } from './ui.jsx'
+import { IconeMeta, IconeMais } from './icones.jsx'
 
 function ItemMeta({ meta, estado, aoAportar, aoEditar, aoAlterarAcumulado }) {
   const c = calcularMeta(meta, estado)
@@ -29,7 +30,7 @@ function ItemMeta({ meta, estado, aoAportar, aoEditar, aoAlterarAcumulado }) {
             <h3 className="truncate text-sm font-semibold text-carvao-100">
               {meta.titulo || 'Meta sem nome'}
             </h3>
-            {c.concluida ? <Selo cor="esmeralda">✓ Alcançada</Selo> : null}
+            {c.concluida ? <Selo cor="esmeralda">Alcançada</Selo> : null}
           </div>
           <p className="tabular mt-1 text-sm text-carvao-400">
             {moeda(c.acumulado)} de {moeda(c.alvo)}
@@ -38,7 +39,7 @@ function ItemMeta({ meta, estado, aoAportar, aoEditar, aoAlterarAcumulado }) {
         <button
           type="button"
           onClick={() => aoEditar(meta.id)}
-          className="shrink-0 rounded-lg px-2 py-1 text-xs text-carvao-400 transition-colors hover:bg-carvao-800 hover:text-carvao-100"
+          className="alvo-toque shrink-0 rounded-lg px-2 py-1 text-xs text-carvao-400 transition-colors hover:bg-carvao-800 hover:text-carvao-100"
         >
           Editar
         </button>
@@ -47,11 +48,11 @@ function ItemMeta({ meta, estado, aoAportar, aoEditar, aoAlterarAcumulado }) {
       <div className="mt-4">
         <BarraProgresso
           fracao={c.fracao}
-          cor={c.concluida ? 'esmeralda' : 'ouro'}
+          cor={c.concluida ? 'esmeralda' : 'violeta'}
           rotulo={`Progresso da meta ${meta.titulo || 'sem nome'}`}
         />
         <div className="mt-2 flex items-center justify-between text-xs">
-          <span className="tabular font-medium text-ouro-300">{percentual(c.fracao, 0)}</span>
+          <span className="tabular font-medium text-violeta-300">{percentual(c.fracao, 0)}</span>
           <span className="tabular text-carvao-500">
             {c.alvo <= 0
               ? 'Defina o valor da meta'
@@ -65,7 +66,7 @@ function ItemMeta({ meta, estado, aoAportar, aoEditar, aoAlterarAcumulado }) {
       {!c.concluida ? (
         <div className="mt-4 grid gap-3 border-t border-carvao-700 pt-4 sm:grid-cols-2">
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-carvao-500">
+            <p className="text-[0.8125rem] text-carvao-500">
               Aporte mensal
             </p>
             <p className="tabular mt-1 text-sm font-semibold text-carvao-100">
@@ -76,7 +77,7 @@ function ItemMeta({ meta, estado, aoAportar, aoEditar, aoAlterarAcumulado }) {
             </p>
           </div>
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-carvao-500">Previsão</p>
+            <p className="text-[0.8125rem] text-carvao-500">Previsão</p>
             <p className="mt-1 text-sm font-semibold text-carvao-100">
               {c.mesesRestantes > 0 ? (
                 <>
@@ -95,7 +96,7 @@ function ItemMeta({ meta, estado, aoAportar, aoEditar, aoAlterarAcumulado }) {
 
       <footer className="mt-4 flex flex-wrap items-end gap-3 border-t border-carvao-700 pt-4">
         <label className="min-w-0 flex-1">
-          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-carvao-500">
+          <span className="mb-1.5 block text-[0.8125rem] text-carvao-500">
             Já guardado
           </span>
           <InputMoeda
@@ -121,7 +122,7 @@ export function MetasCard({ estado, aoAportar, aoAbrirConfig, aoAlterarAcumulado
   return (
     <Cartao>
       <CabecalhoCartao
-        icone="🎯"
+        icone={<IconeMeta />}
         titulo="Planejador de metas"
         subtitulo="O que vem depois de zerar a dívida"
         acao={
@@ -134,7 +135,7 @@ export function MetasCard({ estado, aoAportar, aoAbrirConfig, aoAlterarAcumulado
       />
 
       {totalPendente > 0 && !semMetas ? (
-        <p className="mb-4 rounded-xl border border-ouro-600/30 bg-ouro-500/[0.06] px-4 py-3 text-sm text-carvao-300">
+        <p className="mb-4 rounded-xl border border-violeta-600/30 bg-violeta-500/[0.06] px-4 py-3 text-sm text-carvao-300">
           Ainda há {moeda(totalPendente)} de dívida em aberto. Quitar primeiro rende mais do que
           qualquer aplicação — os juros do rotativo são maiores que qualquer rendimento.
         </p>
@@ -142,7 +143,7 @@ export function MetasCard({ estado, aoAportar, aoAbrirConfig, aoAlterarAcumulado
 
       {semMetas ? (
         <EstadoVazio
-          icone="🎯"
+          icone={<IconeMeta />}
           titulo="Defina seu objetivo pós-dívida"
           descricao="Reserva de emergência, uma viagem, a entrada de um imóvel. Informe o valor e o aporte mensal — a barra de progresso e a data prevista aparecem sozinhas."
           acao={

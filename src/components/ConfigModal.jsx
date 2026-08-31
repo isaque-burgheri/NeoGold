@@ -10,6 +10,14 @@ import { calcularOrcamento } from '../lib/calculos.js'
 import { exportarArquivo, lerArquivo } from '../lib/storage.js'
 import { SyncTab } from './SyncTab.jsx'
 import {
+  IconeOrcamento,
+  IconeDivida,
+  IconeMeta,
+  IconeAportes,
+  IconeCadeado,
+  IconeNuvem,
+} from './icones.jsx'
+import {
   Modal,
   Botao,
   Campo,
@@ -22,12 +30,12 @@ import {
 } from './ui.jsx'
 
 const ABAS = [
-  { id: 'perfil', rotulo: 'Renda e orçamento', icone: '⚖️' },
-  { id: 'dividas', rotulo: 'Dívidas', icone: '🧾' },
-  { id: 'metas', rotulo: 'Metas', icone: '🎯' },
-  { id: 'investimentos', rotulo: 'Investimentos', icone: '📈' },
-  { id: 'dados', rotulo: 'Backup e privacidade', icone: '🔒' },
-  { id: 'sync', rotulo: 'Sincronizar', icone: '☁️' },
+  { id: 'perfil', rotulo: 'Renda e orçamento', Icone: IconeOrcamento },
+  { id: 'dividas', rotulo: 'Dívidas', Icone: IconeDivida },
+  { id: 'metas', rotulo: 'Metas', Icone: IconeMeta },
+  { id: 'investimentos', rotulo: 'Investimentos', Icone: IconeAportes },
+  { id: 'dados', rotulo: 'Backup e privacidade', Icone: IconeCadeado },
+  { id: 'sync', rotulo: 'Sincronizar', Icone: IconeNuvem },
 ]
 
 function Secao({ titulo, descricao, children }) {
@@ -123,7 +131,7 @@ function AbaPerfil({ estado, atualizar }) {
           role="status"
         >
           {o.fechaCem
-            ? `✓ As fatias somam 100% — ${moeda(o.cotaInvestimento)} por mês para investir.`
+            ? `As fatias somam 100% — ${moeda(o.cotaInvestimento)} por mês para investir.`
             : `As fatias somam ${o.somaPercentuais}%. Ajuste para fechar em 100%.`}
         </p>
       </Secao>
@@ -149,7 +157,7 @@ function AbaDividas({ estado, atualizar }) {
       >
         {estado.dividas.length === 0 ? (
           <EstadoVazio
-            icone="🧾"
+            icone={<IconeDivida />}
             titulo="Nenhuma dívida cadastrada"
             descricao="Adicione a dívida que você está renegociando para acompanhar prazo e economia."
           />
@@ -160,7 +168,7 @@ function AbaDividas({ estado, atualizar }) {
               return (
                 <div key={d.id} className="rounded-xl border border-carvao-700 bg-carvao-850 p-4">
                   <div className="mb-3 flex items-center justify-between gap-2">
-                    <span className="text-xs font-medium uppercase tracking-wide text-carvao-500">
+                    <span className="text-[0.8125rem] text-carvao-500">
                       {d.credor || 'Nova dívida'}
                     </span>
                     <div className="flex items-center gap-2">
@@ -265,13 +273,13 @@ function AbaMetas({ estado, atualizar }) {
       descricao="Objetivo, valor e aporte mensal. A previsão de conclusão é calculada automaticamente."
     >
       {estado.metas.length === 0 ? (
-        <EstadoVazio icone="🎯" titulo="Nenhuma meta cadastrada" descricao="Crie a primeira abaixo." />
+        <EstadoVazio icone={<IconeMeta />} titulo="Nenhuma meta cadastrada" descricao="Crie a primeira abaixo." />
       ) : (
         <div className="space-y-4">
           {estado.metas.map((m) => (
             <div key={m.id} className="rounded-xl border border-carvao-700 bg-carvao-850 p-4">
               <div className="mb-3 flex items-center justify-between gap-2">
-                <span className="text-xs font-medium uppercase tracking-wide text-carvao-500">
+                <span className="text-[0.8125rem] text-carvao-500">
                   {m.titulo || 'Nova meta'}
                 </span>
                 <BotaoRemover
@@ -448,10 +456,10 @@ function AbaDados({ estado, substituir, apagarTudo, aoFechar }) {
       >
         <div className="flex flex-wrap gap-3">
           <Botao variante="secundario" onClick={() => exportarArquivo(estado)}>
-            ↓ Baixar backup
+            Baixar backup
           </Botao>
           <Botao variante="secundario" onClick={() => inputArquivo.current?.click()}>
-            ↑ Restaurar backup
+            Restaurar backup
           </Botao>
           <input
             ref={inputArquivo}
@@ -536,15 +544,13 @@ export function ConfigModal({
             type="button"
             onClick={() => aoTrocarAba(item.id)}
             aria-current={aba === item.id ? 'page' : undefined}
-            className={`shrink-0 rounded-xl px-3.5 py-2 text-sm transition-colors ${
+            className={`flex shrink-0 items-center gap-2 rounded-full px-3.5 py-2 text-[0.8125rem] transition-colors ${
               aba === item.id
-                ? 'bg-ouro-500/15 font-semibold text-ouro-300'
+                ? 'bg-violeta-500/15 font-semibold text-violeta-300'
                 : 'text-carvao-400 hover:bg-carvao-800 hover:text-carvao-100'
             }`}
           >
-            <span aria-hidden="true" className="mr-1.5">
-              {item.icone}
-            </span>
+            <item.Icone className="size-4" />
             {item.rotulo}
           </button>
         ))}

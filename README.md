@@ -27,19 +27,49 @@ Consequências práticas:
   bloqueia esse padrão de nome.
 
 Não há Google Fonts, CDN nem analytics: a página carrega apenas os arquivos servidos
-por ela mesma. Com a sincronização desligada — o padrão — ela não faz nenhuma requisição
-de rede depois de carregar.
+por ela mesma, fontes incluídas. Com a sincronização desligada — o padrão — ela não faz
+nenhuma requisição de rede depois de carregar.
 
-### Sincronização entre aparelhos (opcional)
+---
 
-Desligada por padrão. Quando ligada, ela resolve o problema de ter que preencher
-tudo de novo em cada aparelho — sem abrir mão da privacidade.
+## Identidade visual
 
-Você define uma **senha mestra**. Não há cadastro, e-mail nem login. Dela saem
-duas coisas independentes, por PBKDF2 com sais diferentes:
+Uma família só, hospedada no próprio site, subconjunto latino (27 KB):
+**Plus Jakarta Sans** — geométrica, com caráter próprio, sem cair nas
+onipresentes Inter/Roboto/system.
 
-| Derivação | Para quê |
-| --- | --- |
+Um acento só: **violeta**. As superfícies são vidro — branco translúcido com
+`backdrop-filter`, sobre uma atmosfera em gradiente que dá o que desfocar.
+No escuro, halos violeta sobre quase-preto; no claro, um degradê pastel de
+creme a lavanda e rosa. Verde e vermelho existem, mas só onde significam
+algo: quitado e vencendo.
+
+Uma regra sustenta os dois temas e vale para toda cor nova:
+
+- **300 e 400 são texto** — escurecem no modo claro, para ter contraste
+- **500 e 600 são preenchimento, borda e barra** — seguem saturados nos dois
+
+As três fatias do orçamento usam tons da mesma família (`fatia-1/2/3`): uma
+família lê como sistema, três matizes leem como enfeite.
+
+### Tema
+
+Três estados — **sistema**, **claro** e **escuro** — no botão ao lado de
+"Configurar". A escolha fica no `localStorage`; quem deixa em "sistema"
+acompanha o aparelho ao vivo, sem recarregar.
+
+O tema é resolvido em JavaScript e escrito em `data-tema` no `<html>`, e não
+por media query: media query enxerga só a preferência do sistema, nunca a
+escolha da pessoa — e sem a escolha não haveria botão. Um script inline no
+`index.html` aplica o tema antes da primeira pintura, senão a página piscaria
+no tema errado a cada carregamento.
+
+Contraste verificado nos dois temas contra WCAG AA, compondo as camadas
+translúcidas do vidro em vez de comparar com a cor sólida por baixo. Fontes
+em `rem`, para acompanhar quem aumenta a fonte padrão do navegador, e área
+clicável de 44px em todo botão.
+
+--- | --- |
 | Identificador (64 hex) | O endereço onde o pacote fica guardado |
 | Chave AES-GCM 256 | Embaralha o conteúdo antes de sair do navegador |
 
@@ -74,6 +104,7 @@ lado a lado com os valores de cada uma e pergunta qual vale.
 | **Estratégia dos 20%** | Split reserva × renda variável, os três pilares e o ciclo mensal de compra |
 | **Configuração** | Edita qualquer valor, adiciona dívidas e metas, exporta/importa backup, apaga tudo |
 | **Sincronizar** | Liga a sincronização criptografada entre aparelhos e resolve conflitos |
+| **Botão de tema** | Alterna entre sistema, claro e escuro, ao lado de "Configurar" |
 
 Nenhuma dessas telas exige mexer no código-fonte.
 
@@ -143,7 +174,8 @@ api/
 └── plano.js                 # função serverless: guarda o pacote cifrado
 src/
 ├── main.jsx                 # ponto de entrada
-├── index.css                # Tailwind + paleta NeoGold
+├── assets/                  # a fonte .woff2 (subconjunto latino)
+├── index.css                # tipografia, paleta, vidro, atmosfera e animação
 ├── App.jsx                  # composição do painel e todas as ações
 ├── lib/
 │   ├── defaults.js          # estado inicial (sem dado real) e referência do plano
@@ -151,8 +183,10 @@ src/
 │   ├── storage.js           # localStorage, backup, importação e normalização
 │   ├── calculos.js          # todo o cálculo derivado do plano
 │   ├── cripto.js            # PBKDF2 + AES-GCM da sincronização
+│   ├── tema.js              # preferência de tema e resolução claro/escuro
 │   └── sync.js              # ciclo de sincronização e resolução de conflito
 └── components/
+    ├── icones.jsx           # ícones de traço, monocromáticos
     ├── ui.jsx               # cartão, botão, campos, barra, selo, modal
     ├── Header.jsx           # cabeçalho e estado do armazenamento
     ├── ResumoGeral.jsx      # faixa de indicadores

@@ -5,6 +5,7 @@
 import { moeda, percentual, data, diasAte, pluralizar } from '../lib/format.js'
 import { calcularDividas } from '../lib/calculos.js'
 import { Cartao, CabecalhoCartao, Botao, Selo, Metrica, EstadoVazio, BarraProgresso } from './ui.jsx'
+import { IconeDivida, IconeCheck } from './icones.jsx'
 
 function AvisoPrazo({ vencimento }) {
   const dias = diasAte(vencimento)
@@ -35,10 +36,8 @@ function ItemDivida({ divida, aoAlternarQuitada, aoEditar }) {
 
   return (
     <article
-      className={`rounded-xl border p-4 transition-colors sm:p-5 ${
-        quitada
-          ? 'border-esmeralda-500/30 bg-esmeralda-500/[0.06]'
-          : 'border-carvao-700 bg-carvao-850'
+      className={`rounded-xl p-4 transition-colors sm:p-5 ${
+        quitada ? 'bg-esmeralda-500/[0.09]' : 'bg-carvao-850'
       }`}
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -47,7 +46,7 @@ function ItemDivida({ divida, aoAlternarQuitada, aoEditar }) {
             <h3 className="truncate text-sm font-semibold text-carvao-100">
               {credor || 'Dívida sem nome'}
             </h3>
-            {quitada ? <Selo cor="esmeralda">✓ Quitada</Selo> : <Selo cor="ouro">Em aberto</Selo>}
+            {quitada ? <Selo cor="esmeralda">Quitada</Selo> : <Selo cor="violeta">Em aberto</Selo>}
           </div>
           {descricao ? <p className="mt-1 text-sm text-carvao-400">{descricao}</p> : null}
         </div>
@@ -55,7 +54,7 @@ function ItemDivida({ divida, aoAlternarQuitada, aoEditar }) {
         <button
           type="button"
           onClick={() => aoEditar(divida.id)}
-          className="shrink-0 rounded-lg px-2 py-1 text-xs text-carvao-400 transition-colors hover:bg-carvao-800 hover:text-carvao-100"
+          className="alvo-toque shrink-0 rounded-lg px-2 py-1 text-xs text-carvao-400 transition-colors hover:bg-carvao-800 hover:text-carvao-100"
         >
           Editar
         </button>
@@ -63,25 +62,25 @@ function ItemDivida({ divida, aoAlternarQuitada, aoEditar }) {
 
       <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
         <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-carvao-500">Valor original</p>
+          <p className="text-[0.8125rem] text-carvao-500">Valor original</p>
           <p className="tabular mt-1 text-base text-carvao-400 line-through decoration-rubi-500/60">
             {moeda(valorOriginal)}
           </p>
         </div>
         <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-carvao-500">
+          <p className="text-[0.8125rem] text-carvao-500">
             {quitada ? 'Valor pago' : 'Proposta à vista'}
           </p>
           <p
             className={`tabular mt-1 text-lg font-semibold sm:text-xl ${
-              quitada ? 'text-esmeralda-400' : 'text-ouro-400'
+              quitada ? 'text-esmeralda-400' : 'text-violeta-400'
             }`}
           >
             {moeda(valorNegociado)}
           </p>
         </div>
         <div className="col-span-2 sm:col-span-1">
-          <p className="text-xs font-medium uppercase tracking-wide text-carvao-500">Economia</p>
+          <p className="text-[0.8125rem] text-carvao-500">Economia</p>
           <p className="tabular mt-1 text-lg font-semibold text-esmeralda-400 sm:text-xl">
             {moeda(economia)}
           </p>
@@ -95,7 +94,7 @@ function ItemDivida({ divida, aoAlternarQuitada, aoEditar }) {
         <div className="mt-4">
           <BarraProgresso
             fracao={desconto}
-            cor={quitada ? 'esmeralda' : 'ouro'}
+            cor={quitada ? 'esmeralda' : 'violeta'}
             altura="h-1.5"
             rotulo={`Desconto obtido na negociação com ${credor || 'o credor'}`}
           />
@@ -115,7 +114,7 @@ function ItemDivida({ divida, aoAlternarQuitada, aoEditar }) {
           </Botao>
         ) : (
           <Botao variante="sucesso" tamanho="sm" onClick={() => aoAlternarQuitada(divida.id)}>
-            ✓ Marcar como quitada
+            <IconeCheck className="size-3.5" /> Marcar como quitada
           </Botao>
         )}
       </footer>
@@ -129,7 +128,7 @@ export function DividasCard({ estado, aoAlternarQuitada, aoAbrirConfig }) {
   return (
     <Cartao>
       <CabecalhoCartao
-        icone="🧾"
+        icone={<IconeDivida />}
         titulo="Dívidas e renegociações"
         subtitulo={
           d.vazio
@@ -147,7 +146,7 @@ export function DividasCard({ estado, aoAlternarQuitada, aoAbrirConfig }) {
 
       {d.vazio ? (
         <EstadoVazio
-          icone="🧾"
+          icone={<IconeDivida />}
           titulo="Comece cadastrando a dívida que você está negociando"
           descricao="Informe o valor original, o valor da proposta à vista e o prazo. O painel calcula sua economia e acompanha o prazo para você."
           acao={
@@ -162,7 +161,7 @@ export function DividasCard({ estado, aoAlternarQuitada, aoAbrirConfig }) {
             <Metrica
               rotulo="Falta pagar"
               valor={moeda(d.totalPendente)}
-              cor={d.totalPendente > 0 ? 'text-ouro-400' : 'text-esmeralda-400'}
+              cor={d.totalPendente > 0 ? 'text-violeta-400' : 'text-esmeralda-400'}
               detalhe={
                 d.totalPendente > 0
                   ? `De ${moeda(d.totalOriginalPendente)} originais`
@@ -184,9 +183,9 @@ export function DividasCard({ estado, aoAlternarQuitada, aoAbrirConfig }) {
           </div>
 
           {d.tudoQuitado ? (
-            <div className="mb-5 rounded-xl border border-esmeralda-500/30 bg-esmeralda-500/[0.08] p-4 text-center">
-              <p className="text-sm font-semibold text-esmeralda-400">
-                🎉 Todas as dívidas quitadas
+            <div className="mb-5 rounded-xl bg-esmeralda-500/[0.10] p-5 text-center">
+              <p className="flex items-center justify-center gap-2 text-sm font-semibold text-esmeralda-400">
+                <IconeCheck className="size-4" /> Todas as dívidas quitadas
               </p>
               <p className="mt-1 text-sm text-carvao-300">
                 Você economizou {moeda(d.economiaRealizada)}. A partir de agora o dinheiro que ia

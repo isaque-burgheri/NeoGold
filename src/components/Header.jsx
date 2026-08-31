@@ -3,12 +3,21 @@
  */
 
 import { Botao, Selo } from './ui.jsx'
+import {
+  IconeConfig,
+  IconeNuvem,
+  IconeCadeado,
+  IconeAlerta,
+  IconeSol,
+  IconeLua,
+  IconeSistema,
+} from './icones.jsx'
 
 function Logo() {
   return (
     <span
       aria-hidden="true"
-      className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-ouro-400 to-ouro-600 text-lg font-bold text-carvao-950"
+      className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-violeta-500 to-violeta-600 text-lg font-bold text-sobre-acento"
     >
       N
     </span>
@@ -21,31 +30,60 @@ function SeloSync({ sync, aoAbrirConfig }) {
   if (sync.situacao === 'conflito') {
     return (
       <button type="button" onClick={() => aoAbrirConfig('sync')}>
-        <Selo cor="rubi">⚠ Versões em conflito</Selo>
+        <Selo cor="rubi">
+          <IconeAlerta className="size-3.5" /> Versões em conflito
+        </Selo>
       </button>
     )
   }
   if (sync.situacao === 'sincronizando' || sync.situacao === 'abrindo') {
-    return <Selo cor="ouro">☁ Sincronizando…</Selo>
+    return <Selo cor="violeta">
+        <IconeNuvem className="size-3.5" /> Sincronizando…
+      </Selo>
   }
   if (sync.situacao === 'ok') {
     return (
       <Selo cor="esmeralda" className="hidden sm:inline-flex">
-        ☁ Sincronizado
+        <IconeNuvem className="size-3.5" /> Sincronizado
       </Selo>
     )
   }
   if (sync.situacao === 'erro') {
     return (
       <button type="button" onClick={() => aoAbrirConfig('sync')}>
-        <Selo cor="rubi">☁ Falha na sincronização</Selo>
+        <Selo cor="rubi">
+          <IconeNuvem className="size-3.5" /> Falha na sincronização
+        </Selo>
       </button>
     )
   }
   return null
 }
 
-export function Header({ nome, persistencia, sync, aoAbrirConfig }) {
+const ICONE_DO_TEMA = { claro: IconeSol, escuro: IconeLua, sistema: IconeSistema }
+
+/**
+ * Percorre sistema -> claro -> escuro. O ícone mostra a preferência
+ * escolhida, não o tema em vigor: é ela que o clique altera, e ver
+ * "sistema" explicitamente evita a dúvida de por que o tema mudou
+ * sozinho ao anoitecer.
+ */
+function BotaoTema({ tema }) {
+  const Icone = ICONE_DO_TEMA[tema.preferencia] ?? IconeSistema
+  return (
+    <button
+      type="button"
+      onClick={tema.alternar}
+      title={`${tema.rotulo} — clique para alternar`}
+      aria-label={`${tema.rotulo}. Clique para alternar entre sistema, claro e escuro.`}
+      className="alvo-toque grid size-10 shrink-0 place-items-center rounded-full bg-carvao-800 text-carvao-300 transition-colors hover:bg-carvao-700 hover:text-carvao-100"
+    >
+      <Icone className="size-[1.15rem]" />
+    </button>
+  )
+}
+
+export function Header({ nome, persistencia, sync, tema, aoAbrirConfig }) {
   const sincronizando = sync?.ligado
 
   return (
@@ -71,7 +109,7 @@ export function Header({ nome, persistencia, sync, aoAbrirConfig }) {
 
         {persistencia === 'ok' && !sincronizando ? (
           <Selo cor="esmeralda" className="hidden sm:inline-flex">
-            🔒 Salvo localmente
+            <IconeCadeado className="size-3.5" /> Salvo localmente
           </Selo>
         ) : null}
         {persistencia === 'indisponivel' ? (
@@ -79,8 +117,10 @@ export function Header({ nome, persistencia, sync, aoAbrirConfig }) {
         ) : null}
         {persistencia === 'erro' ? <Selo cor="rubi">Falha ao salvar</Selo> : null}
 
+        <BotaoTema tema={tema} />
+
         <Botao variante="secundario" onClick={() => aoAbrirConfig('perfil')}>
-          <span aria-hidden="true">⚙</span> Configurar
+          <IconeConfig className="size-4" /> Configurar
         </Botao>
       </div>
     </header>

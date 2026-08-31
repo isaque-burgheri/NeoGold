@@ -1,46 +1,124 @@
 @import 'tailwindcss';
 
 /*
-  Paleta NeoGold. Fonte do sistema de propósito: nenhuma requisição externa
-  sai da página — sem Google Fonts, sem CDN, sem analytics.
+  Plus Jakarta Sans, servida pelo próprio site, só o subconjunto latino
+  (27 KB). Nenhuma requisição sai para Google Fonts ou CDN.
+*/
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url('./assets/plus-jakarta-sans-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+/*
+  Paleta.
+
+  Um acento só — o violeta — e as superfícies são vidro: branco translúcido
+  sobre a atmosfera, desfocado por trás. É por isso que `carvao-850`, `800`
+  e `700` são `rgb(... / alfa)` em vez de cores sólidas: cada camada compõe
+  sobre a de baixo em vez de tapá-la.
+
+  A escala `carvao` vai da superfície mais distante do olho (950) até a
+  tinta do texto (100). No claro os extremos trocam de lado e nada mais
+  muda — nenhum componente sabe qual tema está ativo.
+
+  Divisão constante nas escalas de cor:
+    300 e 400 -> texto        (escurecem no claro, para ter contraste)
+    500 e 600 -> preenchimento, borda e barra
+
+  O tema é resolvido em JavaScript e escrito em `data-tema` no <html>, e
+  não por media query. Sem isso não haveria como oferecer o botão de troca:
+  media query só enxerga a preferência do sistema, nunca a escolha da
+  pessoa. A preferência do sistema continua valendo como padrão — ver
+  `lib/tema.js` e o script inline em index.html.
 */
 @theme {
-  --color-carvao-950: #08080a;
-  --color-carvao-900: #0d0d10;
-  --color-carvao-850: #121216;
-  --color-carvao-800: #17171c;
-  --color-carvao-700: #202027;
-  --color-carvao-600: #2b2b34;
-  --color-carvao-500: #3a3a45;
-  --color-carvao-400: #6b6b7a;
-  --color-carvao-300: #9a9aab;
-  --color-carvao-200: #c8c8d4;
-  --color-carvao-100: #e9e9f0;
+  --color-carvao-950: #08070c;
+  --color-carvao-900: rgb(255 255 255 / 0.045);
+  --color-carvao-850: rgb(255 255 255 / 0.045);
+  --color-carvao-800: rgb(255 255 255 / 0.085);
+  --color-carvao-700: rgb(255 255 255 / 0.095);
+  --color-carvao-600: rgb(255 255 255 / 0.16);
+  --color-carvao-500: #8b8b9c;
+  --color-carvao-400: #adadbd;
+  --color-carvao-300: #d2d2dd;
+  --color-carvao-200: #e6e6ee;
+  --color-carvao-100: #f7f7fb;
 
-  --color-ouro-700: #8a6a16;
-  --color-ouro-600: #b8912b;
-  --color-ouro-500: #d4af37;
-  --color-ouro-400: #e5c45c;
-  --color-ouro-300: #f0d68c;
+  --color-violeta-700: #4c1d95;
+  --color-violeta-600: #6d3fe0;
+  --color-violeta-500: #8b5cf6;
+  --color-violeta-400: #a78bfa;
+  --color-violeta-300: #c4b5fd;
 
-  --color-esmeralda-600: #059669;
-  --color-esmeralda-500: #10b981;
-  --color-esmeralda-400: #34d399;
-
-  --color-safira-600: #2563eb;
-  --color-safira-500: #3b82f6;
-  --color-safira-400: #60a5fa;
+  --color-esmeralda-600: #16a34a;
+  --color-esmeralda-500: #22c55e;
+  --color-esmeralda-400: #6ee7a8;
 
   --color-rubi-600: #dc2626;
   --color-rubi-500: #ef4444;
-  --color-rubi-400: #f87171;
+  --color-rubi-400: #fca5a5;
+
+  /* As três fatias do orçamento, no mesmo tom do acento. Uma família só
+     lê como um sistema; três matizes leem como enfeite. */
+  --color-fatia-1: #5b32c4;
+  --color-fatia-2: #7c5cff;
+  --color-fatia-3: #a78bfa;
+
+  /* Tinta sobre superfície de acento. */
+  --color-sobre-acento: #ffffff;
 
   --font-sans:
-    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    'Noto Sans', sans-serif;
-  --font-mono: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', Menlo, monospace;
+    'Plus Jakarta Sans', ui-sans-serif, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', monospace;
 
   --radius-xl2: 1.25rem;
+
+  --vidro-borda: rgb(255 255 255 / 0.1);
+  --vidro-blur: 22px;
+  --vidro-sombra: 0 1px 0 0 rgb(255 255 255 / 0.05) inset;
+}
+
+:root[data-tema='claro'] {
+  --color-carvao-950: #f6f4f1;
+  --color-carvao-900: rgb(255 255 255 / 0.7);
+  --color-carvao-850: rgb(255 255 255 / 0.62);
+  --color-carvao-800: rgb(255 255 255 / 0.78);
+  --color-carvao-700: rgb(255 255 255 / 0.8);
+  --color-carvao-600: rgb(90 78 120 / 0.18);
+  --color-carvao-500: #5c5870;
+  --color-carvao-400: #454158;
+  --color-carvao-300: #322f42;
+  --color-carvao-200: #2a2838;
+  --color-carvao-100: #1a1822;
+
+  --color-violeta-700: #3b0f76;
+  --color-violeta-600: #6d28d9;
+  --color-violeta-500: #7c5cff;
+  --color-violeta-400: #5b2bc9;
+  --color-violeta-300: #4c1d95;
+
+  --color-esmeralda-600: #15803d;
+  --color-esmeralda-500: #22c55e;
+  --color-esmeralda-400: #106634;
+
+  --color-rubi-600: #b91c1c;
+  --color-rubi-500: #ef4444;
+  --color-rubi-400: #b3261e;
+
+  --color-fatia-1: #6d28d9;
+  --color-fatia-2: #8b5cf6;
+  --color-fatia-3: #c4b5fd;
+
+  --vidro-borda: rgb(255 255 255 / 0.85);
+  --vidro-blur: 24px;
+  --vidro-sombra:
+    0 1px 0 0 rgb(255 255 255 / 0.9) inset, 0 12px 32px -12px rgb(76 29 149 / 0.14);
 }
 
 @layer base {
@@ -49,8 +127,14 @@
   }
 
   html {
-    color-scheme: dark;
     scrollbar-color: var(--color-carvao-600) transparent;
+  }
+
+  :root[data-tema='escuro'] {
+    color-scheme: dark;
+  }
+  :root[data-tema='claro'] {
+    color-scheme: light;
   }
 
   body {
@@ -62,36 +146,54 @@
     min-height: 100dvh;
   }
 
-  /* Brilho discreto no topo, sem custo de imagem. */
+  /*
+    Atmosfera. No escuro, halos de violeta como luz atrás do vidro; no
+    claro, um degradê pastel de creme a lavanda e rosa. É esse plano de
+    fundo que dá o que desfocar — sem ele o vidro não tem o que mostrar.
+  */
   body::before {
     content: '';
     position: fixed;
-    inset-inline: 0;
-    top: 0;
-    height: 24rem;
+    inset: 0;
     pointer-events: none;
-    background: radial-gradient(60% 100% at 50% 0%, rgb(212 175 55 / 0.09), transparent 70%);
     z-index: 0;
+    background:
+      radial-gradient(58% 44% at 18% 0%, rgb(124 92 255 / 0.3), transparent 62%),
+      radial-gradient(52% 40% at 88% 8%, rgb(168 85 247 / 0.22), transparent 64%),
+      radial-gradient(60% 50% at 50% 108%, rgb(91 50 196 / 0.2), transparent 66%);
   }
 
-  /* Valores em dinheiro nunca "dançam" ao mudar de dígito. */
+  :root[data-tema='claro'] body::before {
+    background:
+      radial-gradient(52% 42% at 8% 0%, rgb(253 224 200 / 0.85), transparent 62%),
+      radial-gradient(48% 40% at 92% 12%, rgb(221 214 254 / 0.9), transparent 64%),
+      radial-gradient(56% 46% at 72% 104%, rgb(251 207 232 / 0.7), transparent 66%),
+      radial-gradient(50% 40% at 12% 96%, rgb(199 210 254 / 0.7), transparent 64%);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 700;
+    letter-spacing: -0.022em;
+  }
+
+  /* `.tabular` marca todo valor monetário do app. */
   .tabular {
     font-variant-numeric: tabular-nums;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.028em;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-ouro-500);
+    outline: 2px solid var(--color-violeta-500);
     outline-offset: 2px;
-    border-radius: 0.375rem;
+    border-radius: 0.5rem;
   }
 
   input[type='date']::-webkit-calendar-picker-indicator {
-    filter: invert(0.7);
     cursor: pointer;
   }
 
-  /* Some com as setinhas dos inputs numéricos. */
   input[type='number']::-webkit-inner-spin-button,
   input[type='number']::-webkit-outer-spin-button {
     appearance: none;
@@ -106,10 +208,66 @@
 @layer components {
   .cartao {
     background-color: var(--color-carvao-900);
-    border: 1px solid var(--color-carvao-700);
+    backdrop-filter: blur(var(--vidro-blur)) saturate(150%);
+    -webkit-backdrop-filter: blur(var(--vidro-blur)) saturate(150%);
+    border: 1px solid var(--vidro-borda);
     border-radius: var(--radius-xl2);
+    box-shadow: var(--vidro-sombra);
     position: relative;
     z-index: 1;
+  }
+
+  /*
+    Amplia a área clicável até 44px sem mexer no tamanho visual nem no
+    layout. Botões pequenos ficam confortáveis no celular continuando
+    discretos na tela grande.
+  */
+  .alvo-toque {
+    position: relative;
+  }
+  .alvo-toque::after {
+    content: '';
+    position: absolute;
+    inset: 50% 0 0 0;
+    translate: 0 -50%;
+    min-height: 44px;
+  }
+
+  /*
+    Entrada em cascata. Um só momento coreografado ao abrir a página rende
+    mais do que micro-animação espalhada por toda parte.
+  */
+  .entrada > * {
+    animation: surgir 0.62s cubic-bezier(0.22, 0.72, 0.28, 1) both;
+  }
+  .entrada > *:nth-child(1) {
+    animation-delay: 0.02s;
+  }
+  .entrada > *:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  .entrada > *:nth-child(3) {
+    animation-delay: 0.18s;
+  }
+  .entrada > *:nth-child(4) {
+    animation-delay: 0.26s;
+  }
+  .entrada > *:nth-child(5) {
+    animation-delay: 0.34s;
+  }
+  .entrada > *:nth-child(n + 6) {
+    animation-delay: 0.42s;
+  }
+}
+
+@keyframes surgir {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 

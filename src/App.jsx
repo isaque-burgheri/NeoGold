@@ -10,6 +10,7 @@
 import { useCallback, useState } from 'react'
 import { usePlano } from './lib/storage.js'
 import { useSync } from './lib/sync.js'
+import { useTema } from './lib/tema.js'
 import { hojeISO } from './lib/format.js'
 import { novaDivida, novaMeta } from './lib/defaults.js'
 
@@ -25,7 +26,7 @@ import { Cartao, Botao } from './components/ui.jsx'
 
 function BoasVindas({ aoComecar, aoDispensar }) {
   return (
-    <Cartao className="mb-5 border-ouro-600/30 bg-gradient-to-br from-ouro-500/[0.08] to-transparent">
+    <Cartao className="mb-5 border-violeta-600/30 bg-gradient-to-br from-violeta-500/[0.08] to-transparent">
       <h2 className="text-lg font-semibold tracking-tight text-carvao-100">
         Bem-vindo ao seu painel
       </h2>
@@ -49,6 +50,7 @@ function BoasVindas({ aoComecar, aoDispensar }) {
 export default function App() {
   const { estado, atualizar, substituir, apagarTudo, persistencia } = usePlano()
   const sync = useSync({ estado, substituir })
+  const tema = useTema()
   const [config, setConfig] = useState({ aberto: false, aba: 'perfil' })
 
   const abrirConfig = useCallback((aba = 'perfil') => {
@@ -173,6 +175,7 @@ export default function App() {
         nome={estado.perfil.nome}
         persistencia={persistencia}
         sync={sync}
+        tema={tema}
         aoAbrirConfig={abrirConfig}
       />
 
@@ -183,7 +186,7 @@ export default function App() {
       {/* Ordem pensada para o uso do dia a dia: o plano em cima, porque é
           o que se abre com frequência; a dívida no fim, porque é consulta
           ocasional e não precisa dominar a primeira tela. */}
-      <main className="grid gap-5">
+      <main className="entrada grid gap-5">
         <OrcamentoCard estado={estado} aoAbrirConfig={abrirConfig} />
 
         <AportesCard

@@ -13,6 +13,7 @@ import {
   EstadoVazio,
   InputMoeda,
 } from './ui.jsx'
+import { IconeReserva } from './icones.jsx'
 
 export function ReservaCard({ estado, aoAlterarAcumulado, aoAportar, aoAbrirConfig }) {
   const r = calcularReserva(estado)
@@ -20,9 +21,9 @@ export function ReservaCard({ estado, aoAlterarAcumulado, aoAportar, aoAbrirConf
   if (r.custoVida <= 0) {
     return (
       <Cartao>
-        <CabecalhoCartao icone="🛟" titulo="Reserva de emergência" subtitulo="Seu colchão de segurança" />
+        <CabecalhoCartao icone={<IconeReserva />} titulo="Reserva de emergência" subtitulo="Seu colchão de segurança" />
         <EstadoVazio
-          icone="🛟"
+          icone={<IconeReserva />}
           titulo="Informe seu custo de vida mensal"
           descricao="A meta da reserva é de 6 a 12 vezes o quanto você gasta por mês para viver."
           acao={
@@ -38,7 +39,7 @@ export function ReservaCard({ estado, aoAlterarAcumulado, aoAportar, aoAbrirConf
   return (
     <Cartao>
       <CabecalhoCartao
-        icone="🛟"
+        icone={<IconeReserva />}
         titulo="Reserva de emergência"
         subtitulo={`Meta de ${r.meses} ${pluralizar(r.meses, 'mês', 'meses')} de custo de vida`}
         acao={
@@ -58,12 +59,12 @@ export function ReservaCard({ estado, aoAlterarAcumulado, aoAportar, aoAbrirConf
       <div className="mt-3">
         <BarraProgresso
           fracao={r.fracao}
-          cor={r.completa ? 'esmeralda' : 'safira'}
+          cor={r.completa ? 'esmeralda' : 'violeta'}
           altura="h-3"
           rotulo="Progresso da reserva de emergência"
         />
         <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs">
-          <span className="tabular font-medium text-safira-400">{percentual(r.fracao, 0)}</span>
+          <span className="tabular font-medium text-carvao-400">{percentual(r.fracao, 0)}</span>
           <span className="tabular text-carvao-500">
             {r.mesesCobertos > 0
               ? `Cobre ${r.mesesCobertos.toFixed(1).replace('.', ',')} ${pluralizar(
@@ -77,18 +78,18 @@ export function ReservaCard({ estado, aoAlterarAcumulado, aoAportar, aoAbrirConf
       </div>
 
       {r.completa ? (
-        <p className="mt-4 rounded-xl border border-esmeralda-500/30 bg-esmeralda-500/[0.08] px-4 py-3 text-sm text-esmeralda-400">
-          ✓ Reserva completa. A partir daqui você pode redirecionar os {moeda(r.aporteMensal)}{' '}
+        <p className="mt-4 rounded-xl bg-esmeralda-500/[0.10] px-4 py-3.5 text-sm text-esmeralda-400">
+          Reserva completa. A partir daqui você pode redirecionar os {moeda(r.aporteMensal)}{' '}
           mensais para a renda variável ou para as suas metas.
         </p>
       ) : (
         <div className="mt-4 grid gap-3 rounded-xl bg-carvao-850 p-4 sm:grid-cols-3">
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-carvao-500">Faltam</p>
+            <p className="text-[0.8125rem] text-carvao-500">Faltam</p>
             <p className="tabular mt-1 text-sm font-semibold text-carvao-100">{moeda(r.falta)}</p>
           </div>
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-carvao-500">
+            <p className="text-[0.8125rem] text-carvao-500">
               Aporte mensal
             </p>
             <p className="tabular mt-1 text-sm font-semibold text-carvao-100">
@@ -96,7 +97,7 @@ export function ReservaCard({ estado, aoAlterarAcumulado, aoAportar, aoAbrirConf
             </p>
           </div>
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-carvao-500">Previsão</p>
+            <p className="text-[0.8125rem] text-carvao-500">Previsão</p>
             <p className="mt-1 text-sm font-semibold text-carvao-100">
               {r.mesesRestantes > 0 ? (
                 <>
@@ -113,9 +114,9 @@ export function ReservaCard({ estado, aoAlterarAcumulado, aoAportar, aoAbrirConf
         </div>
       )}
 
-      <div className="mt-4 flex flex-wrap items-end gap-3 border-t border-carvao-700 pt-4">
+      <div className="mt-5 flex flex-wrap items-end gap-3">
         <label className="min-w-0 flex-1">
-          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-carvao-500">
+          <span className="mb-1.5 block text-[0.8125rem] text-carvao-500">
             Saldo atual da reserva
           </span>
           <InputMoeda
@@ -132,7 +133,7 @@ export function ReservaCard({ estado, aoAlterarAcumulado, aoAportar, aoAbrirConf
       </div>
 
       <p className="mt-3 flex flex-wrap items-center gap-2 text-xs text-carvao-500">
-        <Selo cor="safira">Onde deixar</Selo>
+        <Selo cor="violeta">Onde deixar</Selo>
         Tesouro Selic, CDB 100% do CDI ou caixinhas com liquidez diária — resgate no mesmo dia.
       </p>
     </Cartao>

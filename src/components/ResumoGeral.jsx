@@ -36,7 +36,7 @@ export function ResumoGeral({ estado }) {
         <Metrica
           rotulo="Aporte mensal"
           valor={moeda(r.orcamento.cotaInvestimento)}
-          cor="text-ouro-400"
+          cor="text-violeta-400"
           detalhe={`${moeda(r.aportes.paraReserva)} reserva · ${moeda(r.aportes.paraRendaVariavel)} bolsa`}
         />
       </div>

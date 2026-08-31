@@ -46,7 +46,7 @@ function ItemDivida({ divida, aoAlternarQuitada, aoEditar }) {
             <h3 className="truncate text-sm font-semibold text-carvao-100">
               {credor || 'Dívida sem nome'}
             </h3>
-            {quitada ? <Selo cor="esmeralda">Quitada</Selo> : <Selo cor="ouro">Em aberto</Selo>}
+            {quitada ? <Selo cor="esmeralda">Quitada</Selo> : <Selo cor="violeta">Em aberto</Selo>}
           </div>
           {descricao ? <p className="mt-1 text-sm text-carvao-400">{descricao}</p> : null}
         </div>
@@ -73,7 +73,7 @@ function ItemDivida({ divida, aoAlternarQuitada, aoEditar }) {
           </p>
           <p
             className={`tabular mt-1 text-lg font-semibold sm:text-xl ${
-              quitada ? 'text-esmeralda-400' : 'text-ouro-400'
+              quitada ? 'text-esmeralda-400' : 'text-violeta-400'
             }`}
           >
             {moeda(valorNegociado)}
@@ -94,7 +94,7 @@ function ItemDivida({ divida, aoAlternarQuitada, aoEditar }) {
         <div className="mt-4">
           <BarraProgresso
             fracao={desconto}
-            cor={quitada ? 'esmeralda' : 'ouro'}
+            cor={quitada ? 'esmeralda' : 'violeta'}
             altura="h-1.5"
             rotulo={`Desconto obtido na negociação com ${credor || 'o credor'}`}
           />
@@ -161,7 +161,7 @@ export function DividasCard({ estado, aoAlternarQuitada, aoAbrirConfig }) {
             <Metrica
               rotulo="Falta pagar"
               valor={moeda(d.totalPendente)}
-              cor={d.totalPendente > 0 ? 'text-ouro-400' : 'text-esmeralda-400'}
+              cor={d.totalPendente > 0 ? 'text-violeta-400' : 'text-esmeralda-400'}
               detalhe={
                 d.totalPendente > 0
                   ? `De ${moeda(d.totalOriginalPendente)} originais`

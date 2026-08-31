@@ -546,7 +546,7 @@ export function ConfigModal({
             aria-current={aba === item.id ? 'page' : undefined}
             className={`flex shrink-0 items-center gap-2 rounded-full px-3.5 py-2 text-[0.8125rem] transition-colors ${
               aba === item.id
-                ? 'bg-ouro-500/15 font-semibold text-ouro-300'
+                ? 'bg-violeta-500/15 font-semibold text-violeta-300'
                 : 'text-carvao-400 hover:bg-carvao-800 hover:text-carvao-100'
             }`}
           >

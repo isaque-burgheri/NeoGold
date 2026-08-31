@@ -59,7 +59,7 @@ export function ReservaCard({ estado, aoAlterarAcumulado, aoAportar, aoAbrirConf
       <div className="mt-3">
         <BarraProgresso
           fracao={r.fracao}
-          cor={r.completa ? 'esmeralda' : 'safira'}
+          cor={r.completa ? 'esmeralda' : 'violeta'}
           altura="h-3"
           rotulo="Progresso da reserva de emergência"
         />
@@ -133,7 +133,7 @@ export function ReservaCard({ estado, aoAlterarAcumulado, aoAportar, aoAbrirConf
       </div>
 
       <p className="mt-3 flex flex-wrap items-center gap-2 text-xs text-carvao-500">
-        <Selo cor="safira">Onde deixar</Selo>
+        <Selo cor="violeta">Onde deixar</Selo>
         Tesouro Selic, CDB 100% do CDI ou caixinhas com liquidez diária — resgate no mesmo dia.
       </p>
     </Cartao>

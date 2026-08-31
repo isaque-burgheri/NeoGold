@@ -38,7 +38,7 @@ export function CabecalhoCartao({ titulo, subtitulo, icone, acao }) {
 /* ------------------------------------------------------------------ Botão */
 
 const ESTILOS_BOTAO = {
-  primario: 'bg-ouro-500 text-sobre-ouro hover:bg-ouro-600 font-semibold',
+  primario: 'bg-violeta-600 text-sobre-acento hover:bg-violeta-700 font-semibold',
   secundario: 'bg-carvao-800 text-carvao-100 hover:bg-carvao-700',
   fantasma: 'text-carvao-300 hover:text-carvao-100 hover:bg-carvao-800',
   sucesso: 'bg-esmeralda-600 text-white hover:bg-esmeralda-500 font-semibold',
@@ -83,7 +83,7 @@ export function Campo({ rotulo, dica, children, className = '' }) {
 }
 
 const CLASSE_INPUT =
-  'w-full rounded-xl border border-transparent bg-carvao-850 px-3.5 py-2.5 text-[0.9375rem] text-carvao-100 placeholder:text-carvao-500 transition-colors focus:border-ouro-600 focus:bg-carvao-800'
+  'w-full rounded-xl border border-transparent bg-carvao-850 px-3.5 py-2.5 text-[0.9375rem] text-carvao-100 placeholder:text-carvao-500 transition-colors focus:border-violeta-600 focus:bg-carvao-800'
 
 export function InputTexto({ className = '', ...props }) {
   return <input type="text" className={`${CLASSE_INPUT} ${className}`} {...props} />
@@ -169,15 +169,14 @@ export function InputNumero({
 /* ------------------------------------------------------- Barra de progresso */
 
 // Só tons de preenchimento (-500/-600). Os -400 são de texto e escurecem
-// no modo claro; usá-los aqui deixava a barra marrom em vez de dourada.
+// no modo claro; usá-los aqui deixaria a barra sem contraste.
 const CORES_BARRA = {
-  ouro: 'from-ouro-600 to-ouro-500',
+  violeta: 'from-violeta-600 to-violeta-500',
   esmeralda: 'from-esmeralda-600 to-esmeralda-500',
-  safira: 'from-safira-600 to-safira-500',
   rubi: 'from-rubi-600 to-rubi-500',
 }
 
-export function BarraProgresso({ fracao, cor = 'ouro', altura = 'h-2.5', rotulo }) {
+export function BarraProgresso({ fracao, cor = 'violeta', altura = 'h-2.5', rotulo }) {
   const pct = Math.min(Math.max(Number.isFinite(fracao) ? fracao : 0, 0), 1)
 
   // Começa em zero e cresce até o valor no primeiro quadro depois de montar.
@@ -209,10 +208,9 @@ export function BarraProgresso({ fracao, cor = 'ouro', altura = 'h-2.5', rotulo 
 
 const CORES_SELO = {
   neutro: 'bg-carvao-800 text-carvao-300',
-  ouro: 'bg-ouro-500/12 text-ouro-300',
-  esmeralda: 'bg-esmeralda-500/12 text-esmeralda-400',
-  safira: 'bg-safira-500/12 text-safira-400',
-  rubi: 'bg-rubi-500/12 text-rubi-400',
+  violeta: 'bg-violeta-500/16 text-violeta-300',
+  esmeralda: 'bg-esmeralda-500/16 text-esmeralda-400',
+  rubi: 'bg-rubi-500/16 text-rubi-400',
 }
 
 export function Selo({ children, cor = 'neutro', className = '' }) {

@@ -34,35 +34,42 @@ nenhuma requisição de rede depois de carregar.
 
 ## Identidade visual
 
-Duas famílias, ambas hospedadas no próprio site, só o subconjunto latino (95 KB somados):
+Uma família só, hospedada no próprio site, subconjunto latino (27 KB):
+**Plus Jakarta Sans** — geométrica, com caráter próprio, sem cair nas
+onipresentes Inter/Roboto/system.
 
-| Família | Onde | Por quê |
-| --- | --- | --- |
-| **Fraunces** | Títulos e todas as cifras | Serifada de display com eixo óptico. Dinheiro em serifa é a convenção de extrato bancário e relatório financeiro há um século. |
-| **Instrument Sans** | Texto de interface | Onde serifa atrapalharia a leitura de rótulos e ajuda. |
-
-A paleta tem **um acento só** — o dourado — sobre neutros quentes. As cores semânticas
-existem dessaturadas de propósito: precisam sinalizar "quitado" e "vencendo" sem competir
-pela atenção. O modo claro é papel, não branco clínico, porque dourado sobre branco frio
-vira mostarda.
+Um acento só: **violeta**. As superfícies são vidro — branco translúcido com
+`backdrop-filter`, sobre uma atmosfera em gradiente que dá o que desfocar.
+No escuro, halos violeta sobre quase-preto; no claro, um degradê pastel de
+creme a lavanda e rosa. Verde e vermelho existem, mas só onde significam
+algo: quitado e vencendo.
 
 Uma regra sustenta os dois temas e vale para toda cor nova:
 
 - **300 e 400 são texto** — escurecem no modo claro, para ter contraste
 - **500 e 600 são preenchimento, borda e barra** — seguem saturados nos dois
 
-Contraste verificado nos dois temas contra WCAG AA, compondo as camadas translúcidas.
+As três fatias do orçamento usam tons da mesma família (`fatia-1/2/3`): uma
+família lê como sistema, três matizes leem como enfeite.
 
-### Sincronização entre aparelhos (opcional)
+### Tema
 
-Desligada por padrão. Quando ligada, ela resolve o problema de ter que preencher
-tudo de novo em cada aparelho — sem abrir mão da privacidade.
+Três estados — **sistema**, **claro** e **escuro** — no botão ao lado de
+"Configurar". A escolha fica no `localStorage`; quem deixa em "sistema"
+acompanha o aparelho ao vivo, sem recarregar.
 
-Você define uma **senha mestra**. Não há cadastro, e-mail nem login. Dela saem
-duas coisas independentes, por PBKDF2 com sais diferentes:
+O tema é resolvido em JavaScript e escrito em `data-tema` no `<html>`, e não
+por media query: media query enxerga só a preferência do sistema, nunca a
+escolha da pessoa — e sem a escolha não haveria botão. Um script inline no
+`index.html` aplica o tema antes da primeira pintura, senão a página piscaria
+no tema errado a cada carregamento.
 
-| Derivação | Para quê |
-| --- | --- |
+Contraste verificado nos dois temas contra WCAG AA, compondo as camadas
+translúcidas do vidro em vez de comparar com a cor sólida por baixo. Fontes
+em `rem`, para acompanhar quem aumenta a fonte padrão do navegador, e área
+clicável de 44px em todo botão.
+
+--- | --- |
 | Identificador (64 hex) | O endereço onde o pacote fica guardado |
 | Chave AES-GCM 256 | Embaralha o conteúdo antes de sair do navegador |
 
@@ -97,6 +104,7 @@ lado a lado com os valores de cada uma e pergunta qual vale.
 | **Estratégia dos 20%** | Split reserva × renda variável, os três pilares e o ciclo mensal de compra |
 | **Configuração** | Edita qualquer valor, adiciona dívidas e metas, exporta/importa backup, apaga tudo |
 | **Sincronizar** | Liga a sincronização criptografada entre aparelhos e resolve conflitos |
+| **Botão de tema** | Alterna entre sistema, claro e escuro, ao lado de "Configurar" |
 
 Nenhuma dessas telas exige mexer no código-fonte.
 
@@ -166,8 +174,8 @@ api/
 └── plano.js                 # função serverless: guarda o pacote cifrado
 src/
 ├── main.jsx                 # ponto de entrada
-├── assets/                  # as duas fontes .woff2 (subconjunto latino)
-├── index.css                # tipografia, paleta, atmosfera e animação de entrada
+├── assets/                  # a fonte .woff2 (subconjunto latino)
+├── index.css                # tipografia, paleta, vidro, atmosfera e animação
 ├── App.jsx                  # composição do painel e todas as ações
 ├── lib/
 │   ├── defaults.js          # estado inicial (sem dado real) e referência do plano
@@ -175,6 +183,7 @@ src/
 │   ├── storage.js           # localStorage, backup, importação e normalização
 │   ├── calculos.js          # todo o cálculo derivado do plano
 │   ├── cripto.js            # PBKDF2 + AES-GCM da sincronização
+│   ├── tema.js              # preferência de tema e resolução claro/escuro
 │   └── sync.js              # ciclo de sincronização e resolução de conflito
 └── components/
     ├── icones.jsx           # ícones de traço, monocromáticos

@@ -11,7 +11,7 @@ import { IconeCheck } from './icones.jsx'
 
 const CORES_FORCA = {
   fraca: 'text-rubi-400',
-  media: 'text-ouro-400',
+  media: 'text-violeta-400',
   forte: 'text-esmeralda-400',
   vazia: 'text-carvao-500',
 }
@@ -31,7 +31,7 @@ function ResumoVersao({ titulo, estado, quando, destaque }) {
   return (
     <div
       className={`rounded-xl border p-4 ${
-        destaque ? 'border-ouro-600/40 bg-ouro-500/[0.06]' : 'border-carvao-700 bg-carvao-850'
+        destaque ? 'border-violeta-600/40 bg-violeta-500/[0.06]' : 'border-carvao-700 bg-carvao-850'
       }`}
     >
       <div className="mb-3 flex items-baseline justify-between gap-2">
@@ -97,7 +97,7 @@ function PainelConectado({ sync, aoDesconectar }) {
         <div className="rounded-xl border border-esmeralda-500/25 bg-esmeralda-500/[0.06] p-4">
           <div className="flex flex-wrap items-center gap-3">
             {sync.situacao === 'sincronizando' ? (
-              <Selo cor="ouro">Enviando…</Selo>
+              <Selo cor="violeta">Enviando…</Selo>
             ) : (
               <Selo cor="esmeralda">
                 <IconeCheck className="size-3.5" /> Em dia com a nuvem
@@ -198,7 +198,7 @@ function PainelConectar({ sync, aoConectar }) {
             type="checkbox"
             checked={lembrar}
             onChange={(e) => setLembrar(e.target.checked)}
-            className="mt-0.5 size-4 shrink-0 accent-ouro-500"
+            className="mt-0.5 size-4 shrink-0 accent-violeta-500"
           />
           <span className="text-sm text-carvao-300">
             Lembrar a senha neste aparelho

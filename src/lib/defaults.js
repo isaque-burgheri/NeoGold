@@ -23,7 +23,6 @@ export const PILARES_PADRAO = [
     nome: 'Fundos Imobiliários',
     sigla: 'FIIs',
     exemplos: 'GARI11 (galpões), BTCI11 (papel), BDIF11 (infra), XPML11 (shoppings)',
-    cor: 'esmeralda',
     acumulado: 0,
   },
   {
@@ -31,7 +30,6 @@ export const PILARES_PADRAO = [
     nome: 'Ações do Brasil',
     sigla: 'Ações BR',
     exemplos: 'BOVA11 (ETF do Ibovespa) ou holdings sólidas como ITSA4',
-    cor: 'ouro',
     acumulado: 0,
   },
   {
@@ -39,7 +37,6 @@ export const PILARES_PADRAO = [
     nome: 'Bolsa Americana em Dólar',
     sigla: 'EUA',
     exemplos: 'IVVB11 (S&P 500 na B3) — acumule 2 a 3 meses antes de comprar a cota',
-    cor: 'safira',
     acumulado: 0,
   },
 ]

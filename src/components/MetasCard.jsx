@@ -48,11 +48,11 @@ function ItemMeta({ meta, estado, aoAportar, aoEditar, aoAlterarAcumulado }) {
       <div className="mt-4">
         <BarraProgresso
           fracao={c.fracao}
-          cor={c.concluida ? 'esmeralda' : 'ouro'}
+          cor={c.concluida ? 'esmeralda' : 'violeta'}
           rotulo={`Progresso da meta ${meta.titulo || 'sem nome'}`}
         />
         <div className="mt-2 flex items-center justify-between text-xs">
-          <span className="tabular font-medium text-ouro-300">{percentual(c.fracao, 0)}</span>
+          <span className="tabular font-medium text-violeta-300">{percentual(c.fracao, 0)}</span>
           <span className="tabular text-carvao-500">
             {c.alvo <= 0
               ? 'Defina o valor da meta'
@@ -135,7 +135,7 @@ export function MetasCard({ estado, aoAportar, aoAbrirConfig, aoAlterarAcumulado
       />
 
       {totalPendente > 0 && !semMetas ? (
-        <p className="mb-4 rounded-xl border border-ouro-600/30 bg-ouro-500/[0.06] px-4 py-3 text-sm text-carvao-300">
+        <p className="mb-4 rounded-xl border border-violeta-600/30 bg-violeta-500/[0.06] px-4 py-3 text-sm text-carvao-300">
           Ainda há {moeda(totalPendente)} de dívida em aberto. Quitar primeiro rende mais do que
           qualquer aplicação — os juros do rotativo são maiores que qualquer rendimento.
         </p>

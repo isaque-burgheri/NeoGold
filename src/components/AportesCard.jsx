@@ -9,19 +9,14 @@ import { calcularAportes } from '../lib/calculos.js'
 import { Cartao, CabecalhoCartao, Botao, Selo, EstadoVazio, InputMoeda } from './ui.jsx'
 import { IconeAportes, IconeSeta } from './icones.jsx'
 
-const CORES_PILAR = {
-  esmeralda: { fundo: 'bg-esmeralda-500/[0.09]' },
-  ouro: { fundo: 'bg-ouro-500/[0.09]' },
-  safira: { fundo: 'bg-safira-500/[0.09]' },
-}
+// Só o pilar da vez recebe o tom do acento; os outros ficam neutros.
+const TOM_DA_VEZ = 'bg-violeta-500/[0.14]'
 
 function Pilar({ pilar, aoAlterarAcumulado }) {
-  const cores = CORES_PILAR[pilar.cor] ?? CORES_PILAR.ouro
-
   return (
     <article
       className={`rounded-xl p-4 transition-colors ${
-        pilar.daVez ? cores.fundo : 'bg-carvao-850'
+        pilar.daVez ? TOM_DA_VEZ : 'bg-carvao-850'
       }`}
     >
       <div className="flex items-start justify-between gap-2">
@@ -32,7 +27,7 @@ function Pilar({ pilar, aoAlterarAcumulado }) {
             <span className="ml-1 text-xs font-normal text-carvao-500">/mês</span>
           </p>
         </div>
-        {pilar.daVez ? <Selo cor={pilar.cor}>Vez deste mês</Selo> : null}
+        {pilar.daVez ? <Selo cor="violeta">Vez deste mês</Selo> : null}
       </div>
 
       <p className="mt-2 text-xs leading-relaxed text-carvao-500">{pilar.exemplos}</p>
@@ -122,12 +117,12 @@ export function AportesCard({ estado, aoAvancarCiclo, aoAlterarAcumulado, aoAbri
       </div>
 
       {/* Ciclo do mês */}
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-ouro-500/[0.08] px-4 py-3.5">
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-violeta-500/[0.08] px-4 py-3.5">
         <div>
           <p className="text-[0.8125rem] text-carvao-400">
             Compra deste mês
           </p>
-          <p className="mt-0.5 text-sm font-semibold text-ouro-300">{a.rotuloDaVez}</p>
+          <p className="mt-0.5 text-sm font-semibold text-violeta-300">{a.rotuloDaVez}</p>
         </div>
         <Botao variante="secundario" tamanho="sm" onClick={aoAvancarCiclo}>
           Comprei <IconeSeta className="size-3.5" />

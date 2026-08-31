@@ -7,10 +7,11 @@ import { calcularOrcamento } from '../lib/calculos.js'
 import { Cartao, CabecalhoCartao, Botao, Selo, EstadoVazio } from './ui.jsx'
 import { IconeOrcamento } from './icones.jsx'
 
+// Uma família só lê como sistema; três matizes leem como enfeite.
 const CORES_FATIA = {
-  essenciais: { barra: 'bg-safira-500', texto: 'text-safira-400' },
-  lazer: { barra: 'bg-ouro-500', texto: 'text-ouro-400' },
-  investimentos: { barra: 'bg-esmeralda-500', texto: 'text-esmeralda-400' },
+  essenciais: { barra: 'bg-fatia-1' },
+  lazer: { barra: 'bg-fatia-2' },
+  investimentos: { barra: 'bg-fatia-3' },
 }
 
 export function OrcamentoCard({ estado, aoAbrirConfig }) {

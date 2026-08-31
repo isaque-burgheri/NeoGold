@@ -141,3 +141,32 @@ export function IconeFechar(props) {
     </Base>
   )
 }
+
+/* Tema claro. */
+export function IconeSol(props) {
+  return (
+    <Base {...props}>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2.6v2.1M12 19.3v2.1M4.3 4.3l1.5 1.5M18.2 18.2l1.5 1.5M2.6 12h2.1M19.3 12h2.1M4.3 19.7l1.5-1.5M18.2 5.8l1.5-1.5" />
+    </Base>
+  )
+}
+
+/* Tema escuro. */
+export function IconeLua(props) {
+  return (
+    <Base {...props}>
+      <path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2z" />
+    </Base>
+  )
+}
+
+/* Segue o aparelho. */
+export function IconeSistema(props) {
+  return (
+    <Base {...props}>
+      <rect x="2.8" y="4.5" width="18.4" height="12.5" rx="2.2" />
+      <path d="M9 20.5h6" />
+    </Base>
+  )
+}
